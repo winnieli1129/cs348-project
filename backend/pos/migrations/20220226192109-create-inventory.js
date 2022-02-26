@@ -20,7 +20,8 @@ module.exports = {
           model: 'product',
           key: 'id',
           as: 'product_id'
-        }
+        },
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

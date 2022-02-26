@@ -28,7 +28,8 @@ module.exports = {
           model: 'store',
           key: 'id',
           as: 'store_id'
-        }
+        },
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
