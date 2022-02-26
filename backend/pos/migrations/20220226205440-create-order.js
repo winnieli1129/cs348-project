@@ -25,7 +25,6 @@ module.exports = {
           key: 'id',
           as: 'store_id'
         },
-        allowNull: false,
       },
       customer_id: {
         type: Sequelize.INTEGER,
@@ -36,7 +35,6 @@ module.exports = {
           key: 'id',
           as: 'customer_id'
         },
-        allowNull: false,
       },
       createdAt: {
         allowNull: false,
