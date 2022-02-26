@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'customer_id',
         onDelete: 'CASADE'
       });
+      this.belongsToMany(models.product, {
+        through: 'order_product'
+    });
     }
   }
   order.init({
