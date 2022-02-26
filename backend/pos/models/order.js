@@ -20,7 +20,9 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASADE'
       });
       this.belongsToMany(models.product, {
-        through: 'order_product'
+        through: 'order_product',
+        foreignKey: 'product_id',
+        otherKey: 'order_id'
     });
     }
   }
