@@ -17,8 +17,6 @@ router.post('/', async function(req, res, next) {
       encryptedPassword = await bcrypt.hash(req.body['password'], 10);
       req.body['password'] = encryptedPassword;
     }
-
-    console.log(req.body);
     
     customer.update(req.body, {
         where: {
