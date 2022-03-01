@@ -16,8 +16,8 @@ router.post('/', async function(req, res, next) {
       where: {
         id: customer_id
       }
-    }).then(count => {
-      if (!count) {
+    }).then(user => {
+      if (!user) {
         return res.status(404).send({error: 'Customer not found'});
       }
 
