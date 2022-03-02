@@ -8,6 +8,15 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      store_id: {
+        type: Sequelize.INTEGER,
+        reference: {
+          model: 'store',
+          key: 'id',
+          as: 'store_id'
+        },
+        allowNull: false,
+      },
       name: {
         type: Sequelize.STRING,
         allowNull: false,
@@ -18,15 +27,6 @@ module.exports = {
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: false,
-      },
-      store_id: {
-        type: Sequelize.INTEGER,
-        reference: {
-          model: 'store',
-          key: 'id',
-          as: 'store_id'
-        },
         allowNull: false,
       },
       createdAt: {

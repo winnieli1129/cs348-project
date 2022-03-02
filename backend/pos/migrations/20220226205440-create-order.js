@@ -8,14 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      quantity: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      },
-      total_price: {
-        type: Sequelize.DOUBLE,
-        allowNull: false
-      },
       store_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -34,6 +26,10 @@ module.exports = {
           key: 'id',
           as: 'customer_id'
         },
+      },
+      total_price: {
+        type: Sequelize.DOUBLE,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
