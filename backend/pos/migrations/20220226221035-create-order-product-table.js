@@ -2,7 +2,7 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('order_product', {
+    await queryInterface.createTable('order_products', {
       product_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -24,6 +24,10 @@ module.exports = {
           key: 'id',
           as: 'order_id'
         },
+      },
+      quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

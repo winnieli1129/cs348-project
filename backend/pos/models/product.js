@@ -11,8 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      const order_product = sequelize.define('order_product', {
+        quantity: DataTypes.INTEGER
+      });
       this.belongsToMany(models.order, {
-          through: 'order_product',
+          through: order_product,
           foreignKey: 'order_id',
           otherKey: 'product_id'
       });

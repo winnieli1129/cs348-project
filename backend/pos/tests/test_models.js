@@ -49,7 +49,11 @@ sequelize = new Sequelize(config.database, config.username, config.password, con
       store_id: s.get('id'),
       customer_id: c.get('id')
     });
-    o.addProduct(p);
+    o.addProduct(p, {
+      through: {
+        quantity: 2
+      }
+    });
 
   } catch (error) {
     console.error('Unable to connect to the database:', error);

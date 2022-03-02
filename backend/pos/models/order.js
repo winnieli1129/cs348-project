@@ -18,18 +18,19 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'customer_id',
         onDelete: 'CASADE'
       });
+
+      const order_product = sequelize.define('order_product', {
+        quantity: DataTypes.INTEGER
+      });
+    
       this.belongsToMany(models.product, {
-        through: 'order_product',
+        through: order_product,
         foreignKey: 'product_id',
-        otherKey: 'order_id'
+        otherKey: 'order_id',
     });
     }
   }
   order.init({
-    quantity: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
     total_price: {
       type: DataTypes.DOUBLE,
       allowNull: false
