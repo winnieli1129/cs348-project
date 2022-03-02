@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 const customer = require('../models').customer;
+const auth = require('../middleware/auth');
 
 /* POST delete customer. */
-router.post('/', async function(req, res, next) {
+router.post('/', auth, async function(req, res, next) {
   try {
     const { customer_id } = req.body;
 

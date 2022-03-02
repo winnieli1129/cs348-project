@@ -3,9 +3,10 @@ var router = express.Router();
 const bcrypt = require('bcryptjs');
 
 const customer = require('../models').customer;
+const auth = require('../middleware/auth');
 
 /* POST update customer. */
-router.post('/', async function(req, res, next) {
+router.post('/', auth, async function(req, res, next) {
   try {
     if (!req.body.hasOwnProperty('customer_id')) {
       return res.status(400).send('Require customer_id');
