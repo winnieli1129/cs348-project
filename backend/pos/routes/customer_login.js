@@ -11,7 +11,7 @@ router.post('/', async function(req, res, next) {
     const { email, password } = req.body;
 
     if (!(email && password)) {
-      res.status(400).send("Required email and password");
+      res.status(400).send('Required email and password');
     }
     const user = await customer.findOne({
       where: {
@@ -31,7 +31,7 @@ router.post('/', async function(req, res, next) {
         },
         process.env.TOKEN_KEY,
         {
-          expiresIn: "24h",
+          expiresIn: '24h',
         }
       );
 
@@ -43,7 +43,7 @@ router.post('/', async function(req, res, next) {
       });
     }
 
-    return res.status(400).send("Invalid Credentials");
+    return res.status(400).send('Invalid Credentials');
   } catch(err) {
     console.log(err);
   }

@@ -16,7 +16,7 @@ sequelize = new Sequelize(config.database, config.username, config.password, con
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
     await sequelize.sync({ force: true });
-    console.log("All models were synchronized successfully.");
+    console.log('All models were synchronized successfully.');
 
     const s = await store.create({
       address: 'addr',
