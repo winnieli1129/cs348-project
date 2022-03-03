@@ -7,6 +7,10 @@ const auth = require('../middleware/auth');
 /* POST update product. */
 router.post('/', auth, async function(req, res, next) {
   try {
+    if (req.user.employee !== true) {
+      return res.status(401).send('Unauthorized User');
+    }
+    
     if (!(req.body.hasOwnProperty('product_id') || req.body.hasOwnProperty('serial_number'))) {
       return res.status(400).send('Require either product_id or serial_number');
     }

@@ -25,9 +25,10 @@ router.post('/', async function(req, res, next) {
     if (await bcrypt.compare(password, user.password)) {
       const token = jwt.sign(
         {
-          customer_id: user.id,
+          id: user.id,
           email: user.email,
-          password: user.password
+          password: user.password,
+          employee: false
         },
         process.env.TOKEN_KEY,
         {

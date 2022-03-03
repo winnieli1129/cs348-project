@@ -7,6 +7,10 @@ const auth = require('../middleware/auth');
 /* POST create product. */
 router.post('/', auth, async function(req, res, next) {
   try {
+    if (req.user.employee !== true) {
+      return res.status(401).send('Unauthorized User');
+    }
+    
     const { serial_number, product_name, price } = req.body;
 
     if (!(serial_number && product_name && price)) {
