@@ -4,7 +4,7 @@ var router = express.Router();
 const product = require('../models').product;
 const auth = require('../middleware/auth');
 
-/* POST update customer. */
+/* POST update product. */
 router.post('/', auth, async function(req, res, next) {
   try {
     if (!(req.body.hasOwnProperty('product_id') || req.body.hasOwnProperty('serial_number'))) {

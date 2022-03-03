@@ -4,7 +4,7 @@ var router = express.Router();
 const product = require('../models').product;
 const auth = require('../middleware/auth');
 
-/* POST customer registration. */
+/* POST create product. */
 router.post('/', auth, async function(req, res, next) {
   try {
     const { serial_number, product_name, price } = req.body;
