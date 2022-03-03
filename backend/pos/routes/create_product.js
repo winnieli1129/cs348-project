@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const product = require('../models').product;
+const auth = require('../middleware/auth');
 
 /* POST customer registration. */
 router.post('/', auth, async function(req, res, next) {
