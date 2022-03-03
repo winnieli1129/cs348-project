@@ -12,7 +12,6 @@ router.post('/', auth, async function(req, res, next) {
     }
 
     var searchCondition = req.body['product_id'] ? {id: req.body['product_id']} : {serial_number: req.body['serial_number']};
-    console.log(searchCondition);
     
     product.update(req.body, {
       where: searchCondition
