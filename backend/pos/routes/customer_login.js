@@ -19,7 +19,7 @@ router.post('/', async function(req, res, next) {
       }
     });
     if (!user) {
-      return res.status(409).send('User Didn\'t Exist. Please Register');
+      return res.status(404).send('User Didn\'t Exist. Please Register');
     }
 
     if (await bcrypt.compare(password, user.password)) {
@@ -35,8 +35,6 @@ router.post('/', async function(req, res, next) {
           expiresIn: '24h',
         }
       );
-
-      console.log(token);
 
       return res.status(200).json({
         customer_id: user.id,
