@@ -15,11 +15,11 @@ var customerLoginRouter = require('./routes/customer_login');
 var getCustomerRouter = require('./routes/get_customer');
 
 // Routers for product
-var createProductRouter = require('./routes/create_product');
-var updateProductRouter = require('./routes/update_product');
-var deleteProductRouter = require('./routes/delete_product');
-var getProductRouter = require('./routes/get_product');
-var getProductsRouter = require('./routes/get_products');
+var createProductRouter = require('./routes/product/create_product');
+var updateProductRouter = require('./routes/product/update_product');
+var deleteProductRouter = require('./routes/product/delete_product');
+var getProductRouter = require('./routes/product/get_product');
+var getProductsRouter = require('./routes/product/get_products');
 
 // Routers for employee
 var employeeRegisterRouter = require('./routes/register_employee');
