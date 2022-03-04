@@ -3,9 +3,9 @@ var router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const customer = require('../models').customer;
+const employee = require('../../models').employee;
 
-/* POST customer login. */
+/* POST employee login. */
 router.post('/', async function(req, res, next) {
   try {
     const { email, password } = req.body;
@@ -13,13 +13,13 @@ router.post('/', async function(req, res, next) {
     if (!(email && password)) {
       return res.status(400).send('Required email and password');
     }
-    const user = await customer.findOne({
+    const user = await employee.findOne({
       where: {
         email: email
       }
     });
     if (!user) {
-      return res.status(404).send('Customer Didn\'t Exist. Please Register');
+      return res.status(404).send('Employee Didn\'t Exist. Please Register');
     }
 
     if (await bcrypt.compare(password, user.password)) {
@@ -28,7 +28,7 @@ router.post('/', async function(req, res, next) {
           id: user.id,
           email: user.email,
           password: user.password,
-          employee: false
+          employee: true
         },
         process.env.TOKEN_KEY,
         {
@@ -37,7 +37,7 @@ router.post('/', async function(req, res, next) {
       );
 
       return res.status(200).json({
-        customer_id: user.id,
+        employee_id: user.id,
         jwt_token: token
       });
     }

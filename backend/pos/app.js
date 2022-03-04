@@ -8,22 +8,25 @@ require('dotenv').config();
 var indexRouter = require('./routes/index');
 
 // Routers for customer
-var customerRegisterRouter = require('./routes/register_customer');
-var deleteCustomerRouter = require('./routes/delete_customer');
-var updateCustomerRouter = require('./routes/update_customer');
-var customerLoginRouter = require('./routes/customer_login');
-var getCustomerRouter = require('./routes/get_customer');
+var customerRegisterRouter = require('./routes/customer/register_customer');
+var deleteCustomerRouter = require('./routes/customer/delete_customer');
+var updateCustomerRouter = require('./routes/customer/update_customer');
+var customerLoginRouter = require('./routes/customer/customer_login');
+var getCustomerRouter = require('./routes/customer/get_customer');
 
 // Routers for product
-var createProductRouter = require('./routes/create_product');
-var updateProductRouter = require('./routes/update_product');
-var deleteProductRouter = require('./routes/delete_product');
+var createProductRouter = require('./routes/product/create_product');
+var updateProductRouter = require('./routes/product/update_product');
+var deleteProductRouter = require('./routes/product/delete_product');
+var getProductRouter = require('./routes/product/get_product');
+var getProductsRouter = require('./routes/product/get_products');
 
 // Routers for employee
-var employeeRegisterRouter = require('./routes/register_employee');
-var updateEmployeeRouter = require('./routes/update_employee');
-var employeeLoginRouter = require('./routes/employee_login');
-var deleteEmployeeRouter = require('./routes/delete_employee');
+var employeeRegisterRouter = require('./routes/employee/register_employee');
+var updateEmployeeRouter = require('./routes/employee/update_employee');
+var employeeLoginRouter = require('./routes/employee/employee_login');
+var deleteEmployeeRouter = require('./routes/employee/delete_employee');
+var getEmployeeRouter = require('./routes/employee/get_employee');
 
 var app = express();
 
@@ -50,12 +53,15 @@ app.use('/get-customer', getCustomerRouter);
 app.use('/create-product', createProductRouter);
 app.use('/update-product', updateProductRouter);
 app.use('/delete-product', deleteProductRouter);
+app.use('/get-product', getProductRouter);
+app.use('/get-products', getProductsRouter);
 
 // Enpoints for employee
 app.use('/employee-register', employeeRegisterRouter);
 app.use('/update-employee', updateEmployeeRouter);
 app.use('/employee-login', employeeLoginRouter);
 app.use('/delete-employee', deleteEmployeeRouter);
+app.use('/get-employee', getEmployeeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
