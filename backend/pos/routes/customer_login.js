@@ -19,7 +19,7 @@ router.post('/', async function(req, res, next) {
       }
     });
     if (!user) {
-      return res.status(404).send('User Didn\'t Exist. Please Register');
+      return res.status(404).send('Customer Didn\'t Exist. Please Register');
     }
 
     if (await bcrypt.compare(password, user.password)) {
