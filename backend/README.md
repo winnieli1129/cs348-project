@@ -137,3 +137,10 @@ Body: {
     "employee_id": integer
 }
 ```
+#### `GET /get-employee`
+Require employee's jwt token
+```
+Body: {
+    "employee_id": integer
+}
+```
