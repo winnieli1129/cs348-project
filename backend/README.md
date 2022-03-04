@@ -13,8 +13,7 @@ Navigate to `pos` directory
 ## Usage
 In the `pos` directory, run:
 
-### For MAC/LINUX: `DEBUG=myapp:* npm start`
-### For Window: `set DEBUG=myapp:* & npm start`
+### `npm start`
 Runs the server in the development mode.
 <br /> Open [http://127.0.0.1:3000/](http://127.0.0.1:3000/) to view it in the browser.
 
