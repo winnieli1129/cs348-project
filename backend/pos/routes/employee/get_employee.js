@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-const employee = require('../models').employee;
-const auth = require('../middleware/auth');
+const employee = require('../../models').employee;
+const auth = require('../../middleware/auth');
 
 /* GET retrieve employee with id. */
 router.get('/', auth, async function(req, res, next) {

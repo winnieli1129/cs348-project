@@ -22,11 +22,11 @@ var getProductRouter = require('./routes/product/get_product');
 var getProductsRouter = require('./routes/product/get_products');
 
 // Routers for employee
-var employeeRegisterRouter = require('./routes/register_employee');
-var updateEmployeeRouter = require('./routes/update_employee');
-var employeeLoginRouter = require('./routes/employee_login');
-var deleteEmployeeRouter = require('./routes/delete_employee');
-var getEmployeeRouter = require('./routes/get_employee');
+var employeeRegisterRouter = require('./routes/employee/register_employee');
+var updateEmployeeRouter = require('./routes/employee/update_employee');
+var employeeLoginRouter = require('./routes/employee/employee_login');
+var deleteEmployeeRouter = require('./routes/employee/delete_employee');
+var getEmployeeRouter = require('./routes/employee/get_employee');
 
 var app = express();
 
