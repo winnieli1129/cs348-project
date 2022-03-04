@@ -10,7 +10,7 @@ router.get('/', auth, async function(req, res, next) {
     const { customer_id } = req.body;
 
     if (!customer_id) {
-      res.status(400).send('Required customer_id');
+      return res.status(400).send('Required customer_id');
     }
     const user = await customer.findOne({
       where: {

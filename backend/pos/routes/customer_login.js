@@ -11,7 +11,7 @@ router.post('/', async function(req, res, next) {
     const { email, password } = req.body;
 
     if (!(email && password)) {
-      res.status(400).send('Required email and password');
+      return res.status(400).send('Required email and password');
     }
     const user = await customer.findOne({
       where: {
