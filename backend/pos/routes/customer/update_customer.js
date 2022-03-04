@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 const bcrypt = require('bcryptjs');
 
-const customer = require('../models').customer;
-const auth = require('../middleware/auth');
+const customer = require('../../models').customer;
+const auth = require('../../middleware/auth');
 
 /* POST update customer. */
 router.post('/', auth, async function(req, res, next) {

@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-const customer = require('../models').customer;
-const auth = require('../middleware/auth');
+const customer = require('../../models').customer;
+const auth = require('../../middleware/auth');
 
 /* GET retrieve customer with id. */
 router.get('/', auth, async function(req, res, next) {

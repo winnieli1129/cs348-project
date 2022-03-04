@@ -8,11 +8,11 @@ require('dotenv').config();
 var indexRouter = require('./routes/index');
 
 // Routers for customer
-var customerRegisterRouter = require('./routes/register_customer');
-var deleteCustomerRouter = require('./routes/delete_customer');
-var updateCustomerRouter = require('./routes/update_customer');
-var customerLoginRouter = require('./routes/customer_login');
-var getCustomerRouter = require('./routes/get_customer');
+var customerRegisterRouter = require('./routes/customer/register_customer');
+var deleteCustomerRouter = require('./routes/customer/delete_customer');
+var updateCustomerRouter = require('./routes/customer/update_customer');
+var customerLoginRouter = require('./routes/customer/customer_login');
+var getCustomerRouter = require('./routes/customer/get_customer');
 
 // Routers for product
 var createProductRouter = require('./routes/product/create_product');
