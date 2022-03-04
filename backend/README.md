@@ -101,6 +101,15 @@ Body: {
 }
 * need to have either product_id or serial_number.
 ```
+#### `GET /get-product`
+Require employee's jwt token
+```
+Body: {
+    "product_id": integer (optional if there is serial_number),
+    "serial_number": string (optional if there is product_id)
+}
+* need to have either product_id or serial_number.
+```
 
 ### Enpoints for employee
 #### `POST /employee-register`
