@@ -23,6 +23,7 @@ var deleteProductRouter = require('./routes/delete_product');
 var employeeRegisterRouter = require('./routes/register_employee');
 var updateEmployeeRouter = require('./routes/update_employee');
 var employeeLoginRouter = require('./routes/employee_login');
+var deleteEmployeeRouter = require('./routes/delete_employee');
 
 var app = express();
 
@@ -54,6 +55,7 @@ app.use('/delete-product', deleteProductRouter);
 app.use('/employee-register', employeeRegisterRouter);
 app.use('/update-employee', updateEmployeeRouter);
 app.use('/employee-login', employeeLoginRouter);
+app.use('/delete-employee', deleteEmployeeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
