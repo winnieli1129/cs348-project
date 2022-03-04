@@ -1,5 +1,7 @@
 import * as React from "react"
 import { MdPerson } from "react-icons/md";
+import { LockIcon } from '@chakra-ui/icons';
+
 import {
    Flex,
    Text,
@@ -7,9 +9,11 @@ import {
    InputGroup,
    InputLeftElement,
    InputRightElement,
-   Icon
+   Icon,
+   Button
    
   } from "@chakra-ui/react"
+  
 
 const Login = () => (
     <Flex w="100%" h="100%">
@@ -17,26 +21,34 @@ const Login = () => (
             <Text fontSize='5xl' color='white'> 
                 Welcome! 
             </Text>
-            
         </Flex>
-        <Flex w="50%" direction="column" p={32}>
-            <Flex mb="6">
-                <Text fontSize='3xl' color='black'> 
-                    Login
+        <Flex w="50%" direction="column" p={44}>
+            <Flex mb="2">
+                <Text fontSize='4xl' color='black'> 
+                    Customer Login
                 </Text>
             </Flex>
-            <Flex>
-                <Text fontSize='xl' color='black'> 
+            <Flex mb="10">
+                <Text fontSize='sm' color='black'> 
                     Welcome Back! Login to your account.
                 </Text>
             </Flex>
-            <Flex>
-                {/* <Input variant='flushed' placeholder='Username' /> */}
+            <Flex mb="8">
                 <InputGroup>
-                    
                     <Input variant='flushed' placeholder='Username' />
                         <InputRightElement children={<Icon as={MdPerson} />} />
-                    </InputGroup>
+                </InputGroup>
+            </Flex>
+            <Flex mb="12">
+                <InputGroup>
+                    <Input variant='flushed' placeholder='Password' />
+                        <InputRightElement children={<LockIcon/>} />
+                </InputGroup>
+            </Flex>
+            <Flex>
+                <Button bg='#EE852F' size='md' color='white' width='100%'>
+                    Login
+                </Button>
             </Flex>
         </Flex>
 
