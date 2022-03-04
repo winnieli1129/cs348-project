@@ -21,6 +21,7 @@ var deleteProductRouter = require('./routes/delete_product');
 
 // Routers for employee
 var employeeRegisterRouter = require('./routes/register_employee');
+var updateEmployeeRouter = require('./routes/update_employee');
 
 var app = express();
 
@@ -50,6 +51,7 @@ app.use('/delete-product', deleteProductRouter);
 
 // Enpoints for employee
 app.use('/employee-register', employeeRegisterRouter);
+app.use('/update-employee', updateEmployeeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
