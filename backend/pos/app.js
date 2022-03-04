@@ -19,6 +19,7 @@ var createProductRouter = require('./routes/create_product');
 var updateProductRouter = require('./routes/update_product');
 var deleteProductRouter = require('./routes/delete_product');
 var getProductRouter = require('./routes/get_product');
+var getProductsRouter = require('./routes/get_products');
 
 // Routers for employee
 var employeeRegisterRouter = require('./routes/register_employee');
@@ -53,6 +54,7 @@ app.use('/create-product', createProductRouter);
 app.use('/update-product', updateProductRouter);
 app.use('/delete-product', deleteProductRouter);
 app.use('/get-product', getProductRouter);
+app.use('/get-products', getProductsRouter);
 
 // Enpoints for employee
 app.use('/employee-register', employeeRegisterRouter);
