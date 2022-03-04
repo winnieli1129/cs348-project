@@ -6,14 +6,21 @@ var logger = require('morgan');
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
+
+// Routers for customer
 var customerRegisterRouter = require('./routes/register_customer');
 var deleteCustomerRouter = require('./routes/delete_customer');
 var updateCustomerRouter = require('./routes/update_customer');
 var customerLoginRouter = require('./routes/customer_login');
 var getCustomerRouter = require('./routes/get_customer');
+
+// Routers for product
 var createProductRouter = require('./routes/create_product');
 var updateProductRouter = require('./routes/update_product');
 var deleteProductRouter = require('./routes/delete_product');
+
+// Routers for employee
+var employeeRegisterRouter = require('./routes/register_employee');
 
 var app = express();
 
@@ -40,6 +47,9 @@ app.use('/get-customer', getCustomerRouter);
 app.use('/create-product', createProductRouter);
 app.use('/update-product', updateProductRouter);
 app.use('/delete-product', deleteProductRouter);
+
+// Enpoints for employee
+app.use('/employee-register', employeeRegisterRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
