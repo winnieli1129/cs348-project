@@ -24,6 +24,7 @@ var employeeRegisterRouter = require('./routes/register_employee');
 var updateEmployeeRouter = require('./routes/update_employee');
 var employeeLoginRouter = require('./routes/employee_login');
 var deleteEmployeeRouter = require('./routes/delete_employee');
+var getEmployeeRouter = require('./routes/get_employee');
 
 var app = express();
 
@@ -56,6 +57,7 @@ app.use('/employee-register', employeeRegisterRouter);
 app.use('/update-employee', updateEmployeeRouter);
 app.use('/employee-login', employeeLoginRouter);
 app.use('/delete-employee', deleteEmployeeRouter);
+app.use('/get-employee', getEmployeeRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
