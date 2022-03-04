@@ -23,3 +23,6 @@ Run all migrations files in `/pos/migrations`. Whenever, change to databse model
 
 ### `sequelize db:migrate:undo:all`
 Undo all previous migrations.
+
+## API Endpoint Authorization
+`Authorization: 'jwt token'`
