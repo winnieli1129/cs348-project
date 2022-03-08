@@ -23,6 +23,9 @@ Run all migrations files in `/pos/migrations`. Whenever, change to databse model
 ### `sequelize db:migrate:undo:all`
 Undo all previous migrations.
 
+### `gcloud run deploy`
+Deploy the app onto GCP
+
 ## API Endpoint Authorization
 `Authorization: 'jwt token'`
 
