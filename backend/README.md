@@ -163,7 +163,7 @@ Body: {
 Require employee's jwt token
 ```
 Body: {
-    "customer_id": integer,
+    "customer_id": integer (optional),
     "store_id": integer,
     "prodcuts": [
         {
@@ -174,3 +174,10 @@ Body: {
 }
 ```
 
+#### `POST /delete-order`
+Require employee's jwt token
+```
+Body: {
+    "order_id": integer
+}
+```
