@@ -4,7 +4,7 @@ var router = express.Router();
 const order = require('../../models').order;
 const auth = require('../../middleware/auth');
 
-/* POST delete product. */
+/* POST delete order. */
 router.post('/', auth, async function(req, res, next) {
   try {
     if (req.user.employee !== true) {
