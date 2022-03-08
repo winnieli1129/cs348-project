@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const employee = require('../../models').employee;
+const store = require('../../models').store;
 const auth = require('../../middleware/auth');
 
 /* GET retrieve employee with id. */
@@ -19,7 +20,8 @@ router.get('/', auth, async function(req, res, next) {
     const user = await employee.findOne({
       where: {
         id: employee_id
-      }
+      },
+      include: store
     });
     if (!user) {
       return res.status(404).send('Employee Didn\'t Exist.');
