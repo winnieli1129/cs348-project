@@ -194,3 +194,9 @@ Body: {
     "store_id": integer
 }
 ```
+
+#### `POST /get-orders`
+Require employee's jwt token
+```
+Body: {}
+```
