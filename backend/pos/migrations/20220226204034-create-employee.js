@@ -10,7 +10,7 @@ module.exports = {
       },
       store_id: {
         type: Sequelize.INTEGER,
-        reference: {
+        s: {
           model: 'store',
           key: 'id',
           as: 'store_id'
