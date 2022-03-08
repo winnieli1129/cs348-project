@@ -3,6 +3,8 @@ var router = express.Router();
 
 const product = require('../../models').product;
 const order = require('../../models').order;
+const customer = require('../../models').customer;
+const store = require('../../models').store;
 const auth = require('../../middleware/auth');
 
 /* POST create order. */
@@ -16,6 +18,23 @@ router.post('/', auth, async function(req, res, next) {
 
     if (!(customer_id && store_id && products)) {
       return res.status(400).send('Require customer_id, store_id, and products in form of [{serial_number:string, quantity:int}]');
+    }
+
+    const c = await customer.findOne({
+      where: {
+        id: customer_id
+      }
+    });
+    if (!c) {
+      return res.status(409).send('Customer doesn\'t exists');
+    }
+    const s = await store.findOne({
+      where: {
+        id: store_id
+      }
+    });
+    if (!s) {
+      return res.status(409).send('Store doesn\'t exists');
     }
 
     const new_order = await order.create({
@@ -38,6 +57,9 @@ router.post('/', auth, async function(req, res, next) {
       new_order.total_price += p.price * bought_product['quantity'];
       await new_order.save();
     }
+
+    c.reward_points = new_order.total_price;
+    await c.save();
 
     return res.status(201).json(new_order);
   } catch(err) {
