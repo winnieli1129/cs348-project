@@ -180,8 +180,15 @@ Body: {
     "order_id": integer
 }
 ```
-#### `POST /get-store-order`
+#### `POST /get-store-orders`
 Require employee's jwt token
+```
+Body: {
+    "store_id": integer
+}
+```
+#### `POST /get-customer-orders`
+Require jwt token
 ```
 Body: {
     "store_id": integer
