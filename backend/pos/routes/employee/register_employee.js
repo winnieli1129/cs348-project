@@ -3,6 +3,7 @@ var router = express.Router();
 const bcrypt = require('bcryptjs');
 
 const employee = require('../../models').employee;
+const store = require('../../models').store;
 
 /* POST employee registration. */
 router.post('/', async function(req, res, next) {
@@ -20,6 +21,15 @@ router.post('/', async function(req, res, next) {
     });
     if (old_employee) {
       return res.status(409).send('Employee Already Exist. Please Login');
+    }
+
+    const s = await store.findOne({
+      where: {
+        id: store_id
+      }
+    });
+    if (!s) {
+      return res.status(409).send('Store doesn\'t exists');
     }
 
     encryptedPassword = await bcrypt.hash(password, 10);
