@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
         onDelete: 'CASCADE',
         references: {
-          model: 'product',
+          model: 'products',
           key: 'id',
           as: 'product_id'
         },
@@ -20,7 +20,7 @@ module.exports = {
         primaryKey: true,
         onDelete: 'CASCADE',
         references: {
-          model: 'order',
+          model: 'orders',
           key: 'id',
           as: 'order_id'
         },
