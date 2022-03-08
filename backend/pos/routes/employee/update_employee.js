@@ -29,7 +29,6 @@ router.post('/', auth, async function(req, res, next) {
         }
     }).then(user => {
       if (user == 0) {
-        console.log("id:", employee_id);
         return res.status(404).send({error: 'Employee not found'});
       }
 
