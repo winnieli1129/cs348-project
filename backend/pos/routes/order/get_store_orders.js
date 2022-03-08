@@ -36,7 +36,7 @@ router.get('/', auth, async function(req, res, next) {
         { model: product}
       ]
     });
-    if (!orders) {
+    if (orders.length === 0) {
       return res.status(404).send('The store doesn\'t have any orders.');
     }
 
