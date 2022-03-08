@@ -13,8 +13,8 @@ router.post('/', auth, async function(req, res, next) {
     
     const { order_id } = req.body;
     if (!order_id) {
-        return res.status(400).send('Require order_id');
-      }
+      return res.status(400).send('Require order_id');
+    }
   
 
     order.destroy({
