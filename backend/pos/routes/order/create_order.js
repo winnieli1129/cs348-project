@@ -14,10 +14,14 @@ router.post('/', auth, async function(req, res, next) {
       return res.status(401).send('Unauthorized User');
     }
     
-    const { customer_id, store_id, products } = req.body;
+    var { customer_id, store_id, products } = req.body;
 
-    if (!(customer_id && store_id && products)) {
-      return res.status(400).send('Require customer_id, store_id, and products in form of [{serial_number:string, quantity:int}]');
+    if (!(store_id && products)) {
+      return res.status(400).send('Require store_id, and products in form of [{serial_number:string, quantity:int}]');
+    }
+
+    if (!customer_id) {
+      customer_id = 0;
     }
 
     const c = await customer.findOne({
@@ -42,7 +46,6 @@ router.post('/', auth, async function(req, res, next) {
       store_id: store_id,
       total_price: 0
     });
-    console.log(products)
 
     for (const bought_product of products) {
       const p = await product.findOne({
