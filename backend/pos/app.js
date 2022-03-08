@@ -31,6 +31,7 @@ var getEmployeeRouter = require('./routes/employee/get_employee');
 // Router for order
 var createOrderRouter = require('./routes/order/create_order');
 var deleteOrderRouter = require('./routes/order/delete_order');
+var getStoreOrdersRouter = require('./routes/order/get_store_orders');
 
 var app = express();
 
@@ -70,6 +71,7 @@ app.use('/get-employee', getEmployeeRouter);
 // Endpoints for order
 app.use('/create-order', createOrderRouter);
 app.use('/delete-order', deleteOrderRouter);
+app.use('/get-store-orders', getStoreOrdersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

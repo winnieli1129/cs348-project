@@ -173,11 +173,17 @@ Body: {
     ]
 }
 ```
-
 #### `POST /delete-order`
 Require employee's jwt token
 ```
 Body: {
     "order_id": integer
+}
+```
+#### `POST /get-store-order`
+Require employee's jwt token
+```
+Body: {
+    "store_id": integer
 }
 ```
