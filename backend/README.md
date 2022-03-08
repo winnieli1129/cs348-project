@@ -157,3 +157,20 @@ Body: {
     "employee_id": integer
 }
 ```
+
+### Enpoints for order
+#### `POST /create-order`
+Require employee's jwt token
+```
+Body: {
+    "customer_id": integer,
+    "store_id": integer,
+    "prodcuts": [
+        {
+            "serial_number": string,
+            "quantity": integer
+        }
+    ]
+}
+```
+

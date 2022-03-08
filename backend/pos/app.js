@@ -28,6 +28,9 @@ var employeeLoginRouter = require('./routes/employee/employee_login');
 var deleteEmployeeRouter = require('./routes/employee/delete_employee');
 var getEmployeeRouter = require('./routes/employee/get_employee');
 
+// Router for order
+var createOrderRouter = require('./routes/order/create_order');
+
 var app = express();
 
 // view engine setup
@@ -62,6 +65,9 @@ app.use('/update-employee', updateEmployeeRouter);
 app.use('/employee-login', employeeLoginRouter);
 app.use('/delete-employee', deleteEmployeeRouter);
 app.use('/get-employee', getEmployeeRouter);
+
+// Endpoints for order
+app.use('/create-order', createOrderRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
