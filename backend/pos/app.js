@@ -37,7 +37,13 @@ var getCustomerOrdersRouter = require('./routes/order/get_customer_orders');
 var getOrdersRouter = require('./routes/order/get_orders');
 
 var app = express();
-app.use(cors({ origin: false }));
+var corsOptions = {
+  origin: [
+    'http://127.0.0.1:3000',
+    'http://localhost:3000'
+  ]
+}
+app.use(cors(corsOptions));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
