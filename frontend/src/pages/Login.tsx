@@ -16,13 +16,11 @@ import {
 
 import axios from 'axios';
 
-
-
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const handleSubmit = () => {
-        axios.post(`https://pos-sijggu6trq-uc.a.run.app/customer-login`, {
+        axios.post(`http://localhost:8080/customer-login`, {
             email: username,
             password: password
         })
