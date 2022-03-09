@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const { QueryTypes } = require('sequelize');
+const db = require('../../models/index');
 
 const product = require('../../models').product;
 const auth = require('../../middleware/auth');
@@ -15,6 +17,18 @@ router.post('/', auth, async function(req, res, next) {
       return res.status(400).send('Require either product_id or serial_number');
     }
   
+    
+    // TODO: change to raw sql
+    // var searchCondition = req.body['product_id'] ? `\`id\`=${req.body['product_id']}` : `\`serial_number\`='${req.body['serial_number']}'`;
+    //
+    // db.sequelize.query(`DELETE FROM \`products\` WHERE ${searchCondition};`, { type: QueryTypes.DELETE }).then(product => {
+    //   if (product === 0) {
+    //     return res.status(404).send({error: 'Products not found'});
+    //   }
+
+    //   return res.status(200).send();
+    // });
+
     var searchCondition = req.body['product_id'] ? {id: req.body['product_id']} : {serial_number: req.body['serial_number']};      
 
     product.destroy({

@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const { QueryTypes } = require('sequelize');
+const db = require('../../models/index');
 
 const customer = require('../../models').customer;
 const auth = require('../../middleware/auth');
@@ -12,6 +14,15 @@ router.post('/', auth, async function(req, res, next) {
     if (!customer_id) {
       return res.status(400).send('Require customer_id');
     }
+
+    // TODO: change to raw sql
+    // db.sequelize.query(`DELETE FROM \`customers\` WHERE \`id\`=${customer_id};`, { type: QueryTypes.DELETE }).then(user => {
+    //   if (!user) {
+    //     return res.status(404).send({error: 'Customer not found'});
+    //   }
+
+    //   return res.status(200).send();
+    // });
 
     customer.destroy({
       where: {
