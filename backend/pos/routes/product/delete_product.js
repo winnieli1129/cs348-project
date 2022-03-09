@@ -5,6 +5,7 @@ const db = require('../../models/index');
 
 const product = require('../../models').product;
 const auth = require('../../middleware/auth');
+const e = require('express');
 
 /* POST delete product. */
 router.post('/', auth, async function(req, res, next) {
@@ -19,15 +20,18 @@ router.post('/', auth, async function(req, res, next) {
   
     
     // TODO: change to raw sql
-    // var searchCondition = req.body['product_id'] ? `\`id\`=${req.body['product_id']}` : `\`serial_number\`='${req.body['serial_number']}'`;
-    //
-    // db.sequelize.query(`DELETE FROM \`products\` WHERE ${searchCondition};`, { type: QueryTypes.DELETE }).then(product => {
-    //   if (product === 0) {
-    //     return res.status(404).send({error: 'Products not found'});
-    //   }
+    // var p;
+    // if (req.body['product_id']) {
+    //   p = await db.sequelize.query(`DELETE FROM \`products\` WHERE \`id\`=:id;`, { replacements: {id: req.body['product_id']}, type: QueryTypes.DELETE });
+    // } else {
+    //   p = await db.sequelize.query(`DELETE FROM \`products\` WHERE \`serial_number\`=:num;`, { replacements: {num: req.body['serial_number']}, type: QueryTypes.DELETE });
+    // }    
 
-    //   return res.status(200).send();
-    // });
+    // if (p === 0) {
+    //   return res.status(404).send({error: 'Products not found'});
+    // }
+
+    // return res.status(200).send();
 
     var searchCondition = req.body['product_id'] ? {id: req.body['product_id']} : {serial_number: req.body['serial_number']};      
 
