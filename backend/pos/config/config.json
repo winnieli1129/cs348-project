@@ -17,10 +17,12 @@
   },
   "production": {
     "username": "root",
-    "password": "password",
+    "password": "1Mh77jmwxhPjgJ5A",
     "database": "pos",
-    "host": "127.0.0.1",
-    "port": 3306,
-    "dialect": "mysql"
+    "host": "/cloudsql/cs348-pos:us-central1:cs348-pos",
+    "dialect": "mysql",
+    "dialectOptions": {
+      "socketPath": "/cloudsql/cs348-pos:us-central1:cs348-pos"
+    }
   }
 }

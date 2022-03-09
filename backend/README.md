@@ -15,7 +15,8 @@ In the `pos` directory, run:
 
 ### `npm start`
 Runs the server in the development mode.
-<br /> Open [http://127.0.0.1:8080/](http://127.0.0.1:8080/) to view it in the browser.
+
+Open [http://127.0.0.1:8080/](http://127.0.0.1:8080/) to view it in the browser.
 
 ### `sequelize db:migrate`
 Run all migrations files in `/pos/migrations`. Whenever, change to databse model is made, run the command.
@@ -23,8 +24,10 @@ Run all migrations files in `/pos/migrations`. Whenever, change to databse model
 ### `sequelize db:migrate:undo:all`
 Undo all previous migrations.
 
-### `gcloud run deploy`
-Deploy the app onto GCP
+### `gcloud run deploy pos --source . --region='us-central1'`
+Deploy the app onto GCP Cloud Run.
+
+App will be hosted on [https://pos-sijggu6trq-uc.a.run.app](https://pos-sijggu6trq-uc.a.run.app)
 
 ## API Endpoint Authorization
 `Authorization: 'jwt token'`

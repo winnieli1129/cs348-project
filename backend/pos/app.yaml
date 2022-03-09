@@ -1,2 +1,7 @@
 runtime: nodejs14
 env: standard
+
+CLOUD_SQL_CONNECTION_NAME: cs348-pos:us-central1:cs348-pos
+
+skip_files:
+  - ^node_modules/.*$
