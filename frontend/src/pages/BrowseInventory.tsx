@@ -1,45 +1,51 @@
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import { MdPerson } from "react-icons/md";
 import { DeleteIcon, EditIcon, LockIcon, SearchIcon } from '@chakra-ui/icons';
 
 import {
-   Flex,
-   Text,
-   Input,
-   InputGroup,
-   InputLeftElement,
-   InputRightElement,
-   Icon,
-   Button,
-   Table,
+    Flex,
+    Text,
+    Input,
+    InputGroup,
+    InputLeftElement,
+    InputRightElement,
+    Table,
     Thead,
     Tbody,
     Tfoot,
     Tr,
     Th,
     Td,
-    TableCaption, 
+    TableCaption,
     ButtonGroup,
-    IconButton
-   
-  } from "@chakra-ui/react"
+    IconButton,
+    Collapse,
+    useDisclosure,
+    
+
+
+} from "@chakra-ui/react"
 
 import axios from 'axios';
 
 const BrowseInventory = () => {
+    const { isOpen, onToggle } = useDisclosure()
+    const { isOpen: first, onToggle: firstT } = useDisclosure()
+    const { isOpen: sec, onToggle: secT } = useDisclosure()
     return (
         <Flex direction="column" w="100%" h="100%">
             <Flex justifyContent="space-between" align="center" padding={35}>
                 <Flex><Text fontSize='4xl' color='#EE852F' >Inventory</Text></Flex>
                 <Flex mr="15">
                     <InputGroup>
-                        <Input variant='flushed' placeholder='Search' w="150px"/>
-                        <InputRightElement children={<SearchIcon color="gray.300"/>} />
+                        <Input variant='flushed' placeholder='Search' w="150px" />
+                        <InputRightElement children={<SearchIcon color="gray.300" />} />
                     </InputGroup>
                 </Flex>
-                
+
             </Flex>
-            <Flex borderWidth="1px" borderRadius="10px" mx="20" h="80vh" overflowY="scroll">
+            <Flex borderWidth="1px" borderRadius="10px" mx="20" overflowY="scroll">
+
                 <Table variant="simple">
                     <TableCaption>Inventory</TableCaption>
                     <Thead>
@@ -60,94 +66,37 @@ const BrowseInventory = () => {
                             <Td >
                                 <Flex mr="-10">
                                     <ButtonGroup variant='ghost' spacing='1'>
-                                        <IconButton aria-label='Edit' icon={<EditIcon />} />
+                                        <IconButton onClick={firstT} aria-label='Edit' icon={<EditIcon />} />
                                         <IconButton aria-label='Delete' icon={<DeleteIcon />} />
                                     </ButtonGroup>
                                 </Flex>
                             </Td>
                         </Tr>
-                        <Tr>
-                        <Td>feet</Td>
-                        <Td>centimetres (cm)</Td>
-                        <Td isNumeric>30.48</Td>
-                        <Td isNumeric>10</Td>
                         
-                        </Tr>
+                        <Collapse in={first} animateOpacity>
+                            <Flex>
+                                <Input variant='flushed' placeholder='Search' w="150px" />
+
+                            </Flex>
+                        </Collapse>
+
                         <Tr>
-                        <Td>yards</Td>
-                        <Td>metres (m)</Td>
-                        <Td isNumeric>0.91444</Td>
-                        <Td isNumeric>10</Td>
+                            <Td>feet</Td>
+                            <Td>centimetres (cm)</Td>
+                            <Td isNumeric>30.48</Td>
+                            <Td isNumeric>10</Td>
+                            <Td >
+                                <Flex mr="-10">
+                                    <ButtonGroup variant='ghost' spacing='1'>
+                                        <IconButton onClick={secT} aria-label='Edit' icon={<EditIcon />} />
+                                        <IconButton aria-label='Delete' icon={<DeleteIcon />} />
+                                    </ButtonGroup>
+                                </Flex>
+                            </Td>
                         </Tr>
-                        <Tr>
-                        <Td>inches</Td>
-                        <Td>millimetres (mm)</Td>
-                        <Td isNumeric>25.4</Td>
-                        <Td isNumeric>10</Td>
-                        </Tr>
-                        <Tr>
-                        <Td>inches</Td>
-                        <Td>millimetres (mm)</Td>
-                        <Td isNumeric>25.4</Td>
-                        <Td isNumeric>10</Td>
-                        </Tr>
-                        <Tr>
-                        <Td>inches</Td>
-                        <Td>millimetres (mm)</Td>
-                        <Td isNumeric>25.4</Td>
-                        <Td isNumeric>10</Td>
-                        </Tr>
-                        <Tr>
-                        <Td>inches</Td>
-                        <Td>millimetres (mm)</Td>
-                        <Td isNumeric>25.4</Td>
-                        <Td isNumeric>10</Td>
-                        </Tr>
-                        <Tr>
-                        <Td>inches</Td>
-                        <Td>millimetres (mm)</Td>
-                        <Td isNumeric>25.4</Td>
-                        <Td isNumeric>10</Td>
-                        </Tr>
-                        <Tr>
-                        <Td>inches</Td>
-                        <Td>millimetres (mm)</Td>
-                        <Td isNumeric>25.4</Td>
-                        <Td isNumeric>10</Td>
-                        </Tr>
-                        <Tr>
-                        <Td>inches</Td>
-                        <Td>millimetres (mm)</Td>
-                        <Td isNumeric>25.4</Td>
-                        <Td isNumeric>10</Td>
-                        </Tr>
-                        <Tr>
-                        <Td>inches</Td>
-                        <Td>millimetres (mm)</Td>
-                        <Td isNumeric>25.4</Td>
-                        <Td isNumeric>10</Td>
-                        </Tr>
-                        <Tr>
-                        <Td>inches</Td>
-                        <Td>millimetres (mm)</Td>
-                        <Td isNumeric>25.4</Td>
-                        <Td isNumeric>10</Td>
-                        </Tr>
-                        <Tr>
-                        <Td>inches</Td>
-                        <Td>millimetres (mm)</Td>
-                        <Td isNumeric>25.4</Td>
-                        <Td isNumeric>10</Td>
-                        </Tr>
-                        
+
                     </Tbody>
-                    <Tfoot>
-                        <Tr>
-                        <Th>To convert</Th>
-                        <Th>into</Th>
-                        <Th isNumeric>multiply by</Th>
-                        </Tr>
-                    </Tfoot>
+
                 </Table>
             </Flex>
         </Flex>
