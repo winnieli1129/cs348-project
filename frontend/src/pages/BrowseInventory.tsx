@@ -21,7 +21,7 @@ import {
     IconButton,
     Collapse,
     useDisclosure,
-    
+
 
 
 } from "@chakra-ui/react"
@@ -29,7 +29,7 @@ import {
 import axios from 'axios';
 
 const BrowseInventory = () => {
-    const { isOpen, onToggle } = useDisclosure()
+
     const { isOpen: first, onToggle: firstT } = useDisclosure()
     const { isOpen: sec, onToggle: secT } = useDisclosure()
     return (
@@ -46,7 +46,7 @@ const BrowseInventory = () => {
             </Flex>
             <Flex borderWidth="1px" borderRadius="10px" mx="20" overflowY="scroll">
 
-                <Table variant="simple">
+                <Table variant="simple"  >
                     <TableCaption>Inventory</TableCaption>
                     <Thead>
                         <Tr>
@@ -57,8 +57,11 @@ const BrowseInventory = () => {
                             <Th></Th>
                         </Tr>
                     </Thead>
-                    <Tbody>
-                        <Tr>
+                    <Tbody >
+                        <Tr _hover={{
+                            background: "#EE852F",
+                            color: "white",
+                        }}>
                             <Td>inches</Td>
                             <Td>millimetres (mm)</Td>
                             <Td isNumeric>25.4</Td>
@@ -72,15 +75,20 @@ const BrowseInventory = () => {
                                 </Flex>
                             </Td>
                         </Tr>
-                        
-                        <Collapse in={first} animateOpacity>
-                            <Flex>
-                                <Input variant='flushed' placeholder='Search' w="150px" />
 
+                        <Collapse in={first} animateOpacity>
+                            <Flex bg="grey" >
+                                <Input
+                                    variant='flushed'
+                                    placeholder='serial number'
+                                />
                             </Flex>
                         </Collapse>
 
-                        <Tr>
+                        <Tr _hover={{
+                            background: "#EE852F",
+                            color: "white",
+                        }}>
                             <Td>feet</Td>
                             <Td>centimetres (cm)</Td>
                             <Td isNumeric>30.48</Td>
@@ -99,7 +107,7 @@ const BrowseInventory = () => {
 
                 </Table>
             </Flex>
-        </Flex>
+        </Flex >
     )
 }
 
