@@ -36,7 +36,7 @@ const BrowseInventory = () => {
         <Flex direction="column" w="100%" h="100%">
             <Flex justifyContent="space-between" align="center" padding={35}>
                 <Flex><Text fontSize='4xl' color='#EE852F' >Inventory</Text></Flex>
-                <Flex mr="15">
+                <Flex mr="20">
                     <InputGroup>
                         <Input variant='flushed' placeholder='Search' w="150px" />
                         <InputRightElement children={<SearchIcon color="gray.300" />} />
@@ -60,6 +60,7 @@ const BrowseInventory = () => {
                     <Tbody >
                         <Tr _hover={{
                             background: "#EE852F",
+                            opacity: '90%',
                             color: "white",
                         }}>
                             <Td>inches</Td>
@@ -69,8 +70,10 @@ const BrowseInventory = () => {
                             <Td >
                                 <Flex mr="-10">
                                     <ButtonGroup variant='ghost' spacing='1'>
-                                        <IconButton onClick={firstT} aria-label='Edit' icon={<EditIcon />} />
-                                        <IconButton aria-label='Delete' icon={<DeleteIcon />} />
+                                        <IconButton onClick={firstT} aria-label='Edit' icon={<EditIcon />} _hover={{
+                                            color: "black" }} />
+                                        <IconButton aria-label='Delete' icon={<DeleteIcon />} _hover={{
+                                            color: "black" }}/>
                                     </ButtonGroup>
                                 </Flex>
                             </Td>
@@ -87,6 +90,7 @@ const BrowseInventory = () => {
 
                         <Tr _hover={{
                             background: "#EE852F",
+                            opacity: '90%',
                             color: "white",
                         }}>
                             <Td>feet</Td>
@@ -96,8 +100,10 @@ const BrowseInventory = () => {
                             <Td >
                                 <Flex mr="-10">
                                     <ButtonGroup variant='ghost' spacing='1'>
-                                        <IconButton onClick={secT} aria-label='Edit' icon={<EditIcon />} />
-                                        <IconButton aria-label='Delete' icon={<DeleteIcon />} />
+                                    <IconButton onClick={firstT} aria-label='Edit' icon={<EditIcon />} _hover={{
+                                            color: "black" }} />
+                                        <IconButton aria-label='Delete' icon={<DeleteIcon />} _hover={{
+                                            color: "black" }}/>
                                     </ButtonGroup>
                                 </Flex>
                             </Td>
