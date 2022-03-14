@@ -18,10 +18,6 @@ try{
         return res.status(400).send('Require store_id');
     }
 
-    // await employee.destroy({
-    //     where: { store_id: store_id }
-    // });
-
     store.destroy({
         where: { id: store_id }
     }).then(store => {
