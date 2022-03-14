@@ -5,6 +5,7 @@ const product = require('../../models').product;
 const order = require('../../models').order;
 const customer = require('../../models').customer;
 const store = require('../../models').store;
+const inventory = require('../../models').inventory;
 const auth = require('../../middleware/auth');
 
 /* POST create order. */
@@ -56,6 +57,17 @@ router.post('/', auth, async function(req, res, next) {
       if (!p) {
         return res.status(409).send('Product ' + bought_product['serial_number'] + ' doesn\'t exists');
       }
+      const i = await inventory.findOne({
+        where: {
+          product_id: p.id,
+          store_id: store_id
+        }
+      });
+      if (!i || i.quantity < bought_product['quantity']) {
+        return res.status(409).send('Product ' + bought_product['serial_number'] + ' don\'t have enough stock');
+      }
+      i.quantity -= bought_product['quantity'];
+      i.save();
       await new_order.addProduct(p, { through: { quantity: bought_product['quantity'] } })
       new_order.total_price += p.price * bought_product['quantity'];
       await new_order.save();
