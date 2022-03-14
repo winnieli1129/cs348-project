@@ -215,4 +215,39 @@ Body: {
     "address" : string
     "phone_number" : string
 }
+```
 
+#### `POST /update-store`
+Require employee's jwt token
+```
+Body: {
+    "store_id": integer,
+    "address": string (optional),
+    "phone_number": string (optional)
+}
+```
+
+#### `GET /get-store`
+Require employee's jwt token
+Body requires at least one of the following: store_id, address.
+```
+Body: {
+    "store_id": integer (optional),
+    "address": string (optional)
+}
+```
+
+#### `GET /get-stores`
+Require employee's jwt token
+```
+Body: {}
+```
+
+#### `POST /delete-store`
+Require employee's jwt token
+Body requires at least one of the following: store_id, address.
+```
+Body: {
+    "store_id": integer (optional),
+    "address": string (optional),
+}
