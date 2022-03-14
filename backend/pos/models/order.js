@@ -12,11 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.store, {
-        foreignKey: 'store_id'
+        foreignKey: 'store_id',
+        onDelete: 'CASCADE'
       });
       this.belongsTo(models.customer, {
         foreignKey: 'customer_id',
-        onDelete: 'CASADE'
+        onDelete: 'CASCADE'
       });
 
       const order_product = sequelize.define('order_product', {
@@ -27,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         through: order_product,
         foreignKey: 'order_id',
         otherKey: 'product_id',
-    });
+      });
     }
   }
   order.init({

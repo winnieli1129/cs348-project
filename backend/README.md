@@ -206,3 +206,44 @@ Require employee's jwt token
 ```
 Body: {}
 ```
+
+### Endpoints for store
+#### `POST /create-store`
+Require employee's jwt token
+```
+Body: {
+    "address" : string
+    "phone_number" : string
+}
+```
+
+#### `POST /update-store`
+Require employee's jwt token
+```
+Body: {
+    "store_id": integer,
+    "address": string (optional),
+    "phone_number": string (optional)
+}
+```
+
+#### `GET /get-store`
+Require employee's jwt token
+```
+Body: {
+    "store_id": integer
+}
+```
+
+#### `GET /get-stores`
+Require employee's jwt token
+```
+Body: {}
+```
+
+#### `POST /delete-store`
+Require employee's jwt token
+```
+Body: {
+    "store_id": integer
+}
