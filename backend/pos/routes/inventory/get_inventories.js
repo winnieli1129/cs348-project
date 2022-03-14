@@ -17,7 +17,12 @@ router.get('/', auth, async function(req, res, next) {
 
     //If no criteria are provided, return all inventories
     if(!(store_id || product_id)){
-      const i = await inventory.findAll();
+      const i = await inventory.findAll({
+        include: [
+          { model: store},
+          { model: product}
+        ]
+      });
       return res.status(200).json(i);
     }
 
@@ -35,16 +40,18 @@ router.get('/', auth, async function(req, res, next) {
     //Find all inventories for a certain store
     if(store_id && !product_id){
       const i = await inventory.findAll({
-        where: {store_id: store_id}
+        where: { store_id: store_id },
+        include: [
+          { model: store},
+          { model: product}
+        ]
       });
       return res.status(200).json(i);
     }
 
     if (product_id) {
       const p = await product.findOne({
-        where: {
-          id: product_id
-        }
+        where: { id: product_id }
       });
       if(!p){
         return res.status(404).send('Product not found.')
@@ -54,7 +61,11 @@ router.get('/', auth, async function(req, res, next) {
     //Find all inventories of a certain product
     if(product_id && !store_id){
       const i = await inventory.findAll({
-        where: {product_id: product_id}
+        where: { product_id: product_id },
+        include: [
+          { model: store},
+          { model: product}
+        ]
       });
       return res.status(200).json(i);
     }
@@ -65,7 +76,11 @@ router.get('/', auth, async function(req, res, next) {
         where: {
           product_id: product_id,
           store_id: store_id
-        }
+        },
+        include: [
+          { model: store},
+          { model: product}
+        ]
     });
     if(!i){
       return res.status(404).send('No inventory found for that product at that store.')

@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 const inventory = require('../../models').inventory;
+const store = require('../../models').store;
+const product = require('../../models').product;
 const auth = require('../../middleware/auth');
 
 /* GET retrieve inventory with id */
@@ -18,7 +20,11 @@ router.get('/', auth, async function(req, res, next){
     }
 
     const i = await inventory.findOne({
-      where: {id: inventory_id}
+      where: { id: inventory_id },
+      include: [
+        { model: store},
+        { model: product}
+      ]
     });
     if(!i) {
       return res.status(404).send('Inventory does not exist.');
