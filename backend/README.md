@@ -229,11 +229,9 @@ Body: {
 
 #### `GET /get-store`
 Require employee's jwt token
-Body requires at least one of the following: store_id, address.
 ```
 Body: {
-    "store_id": integer (optional),
-    "address": string (optional)
+    "store_id": integer
 }
 ```
 
@@ -245,9 +243,7 @@ Body: {}
 
 #### `POST /delete-store`
 Require employee's jwt token
-Body requires at least one of the following: store_id, address.
 ```
 Body: {
-    "store_id": integer (optional),
-    "address": string (optional),
+    "store_id": integer
 }
