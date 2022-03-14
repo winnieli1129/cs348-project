@@ -10,12 +10,13 @@ module.exports = {
       },
       store_id: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: 'CASCADE',
         references: {
           model: 'stores',
           key: 'id',
           as: 'store_id'
         },
-        allowNull: false,
       },
       name: {
         type: Sequelize.STRING,

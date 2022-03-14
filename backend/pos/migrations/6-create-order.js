@@ -11,6 +11,7 @@ module.exports = {
       store_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        onDelete: 'CASCADE',
         references: {
           model: 'stores',
           key: 'id',
