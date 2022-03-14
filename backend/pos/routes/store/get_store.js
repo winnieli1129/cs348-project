@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-const store = require('../../models').store;
 const auth = require('../../middleware/auth');
+const { QueryTypes } = require('sequelize');
+const db = require('../../models/index');
 
 /* GET retrieve store with id */
 router.get('/', auth, async function(req, res, next) {
@@ -17,10 +18,8 @@ router.get('/', auth, async function(req, res, next) {
       return res.status(400).send('Require store_id');
     }
 
-    const s = await store.findOne({
-      where: { id: store_id}
-    });
-    if(!s) {
+    const s = await db.sequelize.query(`SELECT * FROM \`stores\` WHERE \`id\`=:id;`, { replacements: {id: store_id}, type: QueryTypes.SELECT });
+    if(s.length === 0) {
       return res.status(404).send('Store does not exist.');
     }
 
