@@ -43,6 +43,13 @@ var deleteStoreRouter = require('./routes/store/delete_store');
 var getStoreRouter = require('./routes/store/get_store');
 var getStoresRouter = require('./routes/store/get_stores');
 
+//Router for inventory
+var createInventoryRouter = require('./routes/inventory/create_inventory');
+var deleteInventoryRouter = require('./routes/inventory/delete_inventory');
+var getInventoryRouter = require('./routes/inventory/get_inventory');
+var getInventoriesRouter = require('./routes/inventory/get_inventories');
+var updateInventoryRouter = require('./routes/inventory/update_inventory');
+
 
 var app = express();
 var corsOptions = {
@@ -99,6 +106,13 @@ app.use('/delete-store', deleteStoreRouter);
 app.use('/update-store', updateStoreRouter);
 app.use('/get-store', getStoreRouter);
 app.use('/get-stores', getStoresRouter);
+
+//Endpoints for inventory
+app.use('/create-inventory', createInventoryRouter);
+app.use('/delete-inventory', deleteInventoryRouter);
+app.use('/get-inventory', getInventoryRouter);
+app.use('/get-inventories', getInventoriesRouter);
+app.use('/update-inventory', updateInventoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

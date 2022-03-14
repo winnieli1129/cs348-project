@@ -4,7 +4,7 @@ var router = express.Router();
 const store = require('../../models').store;
 const auth = require('../../middleware/auth');
 
-/* GET retrieve store with id/address. */
+/* GET retrieve store with id */
 router.get('/', auth, async function(req, res, next) {
   try{
     if(req.user.employee !== true){
@@ -24,7 +24,7 @@ router.get('/', auth, async function(req, res, next) {
       return res.status(404).send('Store does not exist.');
     }
 
-    return res.status(200).json(s)
+    return res.status(200).json(s);
   } catch(err) {
       console.log(err);
   }
