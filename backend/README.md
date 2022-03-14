@@ -247,6 +247,7 @@ Require employee's jwt token
 Body: {
     "store_id": integer
 }
+```
 
 ### Endpoints for inventory
 #### `POST /create-inventory`
