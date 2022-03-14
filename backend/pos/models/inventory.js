@@ -13,7 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(models.product, {
         foreignKey: 'product_id',
-        onDelete: 'CASADE'
+        onDelete: 'CASCADE'
+      });
+
+      this.belongsTo(models.store, {
+        foreignKey: 'store_id',
+        onDelete: 'CASCADE'
       });
     }
   }

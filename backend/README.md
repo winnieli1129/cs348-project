@@ -247,3 +247,52 @@ Require employee's jwt token
 Body: {
     "store_id": integer
 }
+
+### Endpoints for inventory
+#### `POST /create-inventory`
+Require employee's jwt token
+```
+Body:{
+    "product_id" : integer
+    "store_id" : integer
+}
+```
+
+#### `POST /delete-inventory`
+Require employee's jwt token
+```
+Body:{
+    "inventory_id" : integer
+}
+```
+
+#### `POST /update-inventory`
+Require employee's jwt token
+```
+Body:{
+    "inventory_id" : integer
+    "quantity" : integer
+}
+```
+*quantity cannot be less than 0
+
+#### `GET /get-inventory`
+Require employee's jwt token
+```
+Body:{
+    "inventory_id" : integer
+}
+```
+
+#### `GET /get-inventories`
+Require employee's jwt token
+```
+Body:{
+    "store_id" : integer (optional)
+    "product_id" : integer (optional)
+}
+```
+Returns all inventories if you provide neither store_id nor product_id.
+Returns all inventories at a certain store if you provide store_id and not product_id.
+Returns all inventories of a certain product if you provide product_id and not store_id.
+Returns only the inventory of the requested product at the requested store if you provide both.

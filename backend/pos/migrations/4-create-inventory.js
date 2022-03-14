@@ -18,6 +18,16 @@ module.exports = {
         },
         allowNull: false,
       },
+      store_id: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'stores',
+          key: 'id',
+          as: 'store_id'
+        },
+        allowNull: false,
+      },
       quantity: {
         type: Sequelize.INTEGER,
         allowNull: false,
