@@ -206,3 +206,13 @@ Require employee's jwt token
 ```
 Body: {}
 ```
+
+### Endpoints for store
+#### `POST /create-store`
+Require employee's jwt token
+```
+Body: {
+    "address" : string
+    "phone_number" : string
+}
+

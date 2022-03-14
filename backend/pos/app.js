@@ -36,6 +36,14 @@ var getStoreOrdersRouter = require('./routes/order/get_store_orders');
 var getCustomerOrdersRouter = require('./routes/order/get_customer_orders');
 var getOrdersRouter = require('./routes/order/get_orders');
 
+//Router for store
+var createStoreRouter = require('./routes/store/create_store');
+var updateStoreRouter = require('./routes/store/update_store');
+var deleteStoreRouter = require('./routes/store/delete_store');
+var getStoreRouter = require('./routes/store/get_store');
+var getAllStoresRouter = require('./routes/store/get_stores');
+
+
 var app = express();
 var corsOptions = {
   origin: [
