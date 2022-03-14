@@ -10,8 +10,8 @@ router.post('/', async function(req, res, next) {
   try {
     const { store_id, name, email, password } = req.body;
 
-    if (!(store_id && name && email && password)) {
-      return res.status(400).send('Require store_id, name, email, and password');
+    if (!(name && email && password)) {
+      return res.status(400).send('Require name, email, and password');
     }
 
     const old_employee = await employee.findOne({
@@ -23,13 +23,15 @@ router.post('/', async function(req, res, next) {
       return res.status(409).send('Employee Already Exist. Please Login');
     }
 
-    const s = await store.findOne({
-      where: {
-        id: store_id
+    if (store_id) {
+      const s = await store.findOne({
+        where: {
+          id: store_id
+        }
+      });
+      if (!s) {
+        return res.status(409).send('Store doesn\'t exists');
       }
-    });
-    if (!s) {
-      return res.status(409).send('Store doesn\'t exists');
     }
 
     encryptedPassword = await bcrypt.hash(password, 10);

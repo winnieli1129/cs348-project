@@ -10,7 +10,7 @@ module.exports = {
       },
       store_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
         onDelete: 'CASCADE',
         references: {
           model: 'stores',
