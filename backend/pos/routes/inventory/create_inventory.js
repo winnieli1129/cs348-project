@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 const inventory = require('../../models').inventory;
+const store = require('../../models').store;
+const product = require('../../models').product;
 const auth = require('../../middleware/auth');
 
 /*POST create inventory. */
@@ -20,7 +22,7 @@ router.post('/', auth, async function(req, res, next) {
     //Check for valid store.
     const s = await store.findOne({
       where: {
-        store_id: store_id
+        id: store_id
       }
     });
     if(!s){
@@ -28,9 +30,9 @@ router.post('/', auth, async function(req, res, next) {
     }
 
     //Check for valid product.
-    const p = await product_id.findOne({
+    const p = await product.findOne({
       where: {
-        product_id: product_id
+        id: product_id
       }
     });
     if(!p){
