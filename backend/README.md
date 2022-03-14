@@ -254,8 +254,9 @@ Body: {
 Require employee's jwt token
 ```
 Body:{
-    "product_id" : integer
-    "store_id" : integer
+    "product_id" : integer,
+    "store_id" : integer,
+    "quantity": integer
 }
 ```
 
