@@ -25,10 +25,6 @@ router.post('/', auth, async function(req, res, next) {
     //   p = await db.sequelize.query(`DELETE FROM \`products\` WHERE \`id\`=:id;`, { replacements: {id: req.body['product_id']}, type: QueryTypes.DELETE });
     // } else {
     //   p = await db.sequelize.query(`DELETE FROM \`products\` WHERE \`serial_number\`=:num;`, { replacements: {num: req.body['serial_number']}, type: QueryTypes.DELETE });
-    // }    
-
-    // if (p === 0) {
-    //   return res.status(404).send({error: 'Products not found'});
     // }
 
     // return res.status(200).send();

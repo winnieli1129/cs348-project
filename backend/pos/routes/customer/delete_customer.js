@@ -16,13 +16,8 @@ router.post('/', auth, async function(req, res, next) {
     }
 
     // TODO: change to raw sql
-    // db.sequelize.query(`DELETE FROM \`customers\` WHERE \`id\`=:id;`, { replacements: {id: customer_id}, type: QueryTypes.DELETE }).then(user => {
-    //   if (user === 0) {
-    //     return res.status(404).send({error: 'Customer not found'});
-    //   }
-
-    //   return res.status(200).send();
-    // });
+    // await db.sequelize.query(`DELETE FROM \`customers\` WHERE \`id\`=:id;`, { replacements: {id: customer_id}, type: QueryTypes.DELETE });
+    // return res.status(200).send();
 
     customer.destroy({
       where: {
