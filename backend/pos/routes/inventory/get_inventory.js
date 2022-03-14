@@ -20,7 +20,7 @@ router.get('/', auth, async function(req, res, next){
     const i = await inventory.findOne({
       where: {id: inventory_id}
     });
-    if(!s) {
+    if(!i) {
       return res.status(404).send('Inventory does not exist.');
     }
 
