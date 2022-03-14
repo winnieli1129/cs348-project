@@ -1,11 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const { QueryTypes } = require('sequelize');
-const db = require('../../models/index');
 
-const product = require('../../models').product;
+const store = require('../../models').store;
+const employee = require('../../models').employee;
 const auth = require('../../middleware/auth');
-const e = require('express');
 
 /* POST delete store. */
 router.post('/', auth, async function(req, res, next) {
@@ -14,14 +12,18 @@ try{
         return res.status(401).send('Unauthorized User');
     }
 
-    if(!(req.body.hasOwnProperty('store_id') || req.body.hasOwnProperty('address'))) {
-        return res.status(400).send('Require either store_id or address');
+    const { store_id } = req.body;
+
+    if(!store_id) {
+        return res.status(400).send('Require store_id');
     }
 
-    var searchCondition = req.body['store_id'] ? {id: req.body['store_id']} : {address: req.body['address']};
+    // await employee.destroy({
+    //     where: { store_id: store_id }
+    // });
 
     store.destroy({
-        where: searchCondition
+        where: { id: store_id }
     }).then(store => {
         if (!store) {
             return res.status(404).send({error: 'Store not found'});

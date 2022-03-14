@@ -36,12 +36,12 @@ var getStoreOrdersRouter = require('./routes/order/get_store_orders');
 var getCustomerOrdersRouter = require('./routes/order/get_customer_orders');
 var getOrdersRouter = require('./routes/order/get_orders');
 
-//Router for store
+// Router for store
 var createStoreRouter = require('./routes/store/create_store');
 var updateStoreRouter = require('./routes/store/update_store');
 var deleteStoreRouter = require('./routes/store/delete_store');
 var getStoreRouter = require('./routes/store/get_store');
-var getAllStoresRouter = require('./routes/store/get_stores');
+var getStoresRouter = require('./routes/store/get_stores');
 
 
 var app = express();
@@ -92,6 +92,13 @@ app.use('/delete-order', deleteOrderRouter);
 app.use('/get-store-orders', getStoreOrdersRouter);
 app.use('/get-customer-orders', getCustomerOrdersRouter);
 app.use('/get-orders', getOrdersRouter);
+
+// Endpoints for store
+app.use('/create-store', createStoreRouter);
+app.use('/delete-store', deleteStoreRouter);
+app.use('/update-store', updateStoreRouter);
+app.use('/get-store', getStoreRouter);
+app.use('/get-stores', getStoresRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
