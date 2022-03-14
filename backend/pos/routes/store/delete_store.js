@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 const store = require('../../models').store;
-const employee = require('../../models').employee;
 const auth = require('../../middleware/auth');
 
 /* POST delete store. */
