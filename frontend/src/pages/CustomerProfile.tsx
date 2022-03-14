@@ -12,7 +12,10 @@ import {
     Icon,
     Button,
     Image,
-    Divider
+    Divider,
+    Editable,
+    EditableInput,
+    EditablePreview,
 
 } from "@chakra-ui/react"
 
@@ -33,9 +36,26 @@ const CustomerProfile = () => {
                 <Divider orientation='horizontal' color='#BCD8C1' w='200px' />
 
             </Flex>
-            <Flex w="75%" bg='#BCD8C1' opacity='50%' align='center' padding={50} >
-                <Flex w='100%' h='100%' bg='white' borderRadius='10px' shadow='md'>
-                    hello
+            <Flex w="75%" bg='#BCD8C1' align='center' padding={50} >
+                <Flex direction='column' w='100%' h='100%' bg='white' borderRadius='7px' shadow='md' >
+                    <Text fontSize='xl' as='b' mx='40px' mt='40px' color='black'>Personal Info</Text>
+                    <Divider borderColor='#BCD8C1' w='780px' mx='40px' />
+                    <Flex>
+                        <Flex direction='column' ml='40px'>
+                            <Text fontSize='sm' mt='10' mb='3'>First Name</Text>
+                            <Input w='300px' variant='flushed' borderColor='#BCD8C1' defaultValue='Banana' />
+                            <Text fontSize='sm' mt='10' mb='3'>Email Address</Text>
+                            <Input w='300px' variant='flushed' borderColor='#BCD8C1' defaultValue='banana2022@gmail.com' />
+                            <Text fontSize='sm' mt='10' mb='3'>Phone Number</Text>
+                            <Input w='300px' variant='flushed' borderColor='#BCD8C1' defaultValue='987654321' />
+                            <Text fontSize='sm' mt='10' mb='3'>Password</Text>
+                            <Input w='300px' variant='flushed' borderColor='#BCD8C1' defaultValue='penpinealpplepen' />
+                        </Flex>
+                        <Flex direction='column' mx='100px'>
+                            <Text fontSize='sm' mt='10' mb='3'>Last Name</Text>
+                            <Input w='300px' variant='flushed' borderColor='#BCD8C1' defaultValue='Banana' />
+                        </Flex>
+                    </Flex>
                 </Flex>
             </Flex>
         </Flex>
