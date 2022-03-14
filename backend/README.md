@@ -179,6 +179,8 @@ Body: {
     ]
 }
 ```
+This will also update inventory quantity and return error if there is not enought stock.
+
 #### `POST /delete-order`
 Require employee's jwt token
 ```
