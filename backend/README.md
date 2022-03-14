@@ -272,7 +272,7 @@ Body:{
 Require employee's jwt token
 ```
 Body:{
-    "inventory_id" : integer
+    "inventory_id" : integer,
     "quantity" : integer
 }
 ```
@@ -290,7 +290,7 @@ Body:{
 Require employee's jwt token
 ```
 Body:{
-    "store_id" : integer (optional)
+    "store_id" : integer (optional),
     "product_id" : integer (optional)
 }
 ```
