@@ -20,13 +20,16 @@ router.post('/', auth, async function(req, res, next) {
   
     
     // TODO: change to raw sql
-    // var p;
+    // const p;
     // if (req.body['product_id']) {
-    //   p = await db.sequelize.query(`DELETE FROM \`products\` WHERE \`id\`=:id;`, { replacements: {id: req.body['product_id']}, type: QueryTypes.DELETE });
+    //   p = await db.sequelize.query(`DELETE FROM \`products\` WHERE \`id\`=:id;`, { replacements: { id: req.body['product_id'] } });
     // } else {
-    //   p = await db.sequelize.query(`DELETE FROM \`products\` WHERE \`serial_number\`=:num;`, { replacements: {num: req.body['serial_number']}, type: QueryTypes.DELETE });
+    //   p = await db.sequelize.query(`DELETE FROM \`products\` WHERE \`serial_number\`=:num;`, { replacements: { num: req.body['serial_number'] } });
     // }
-
+    // if (p[0].affectedRows === 0) {
+    //   return res.status(404).send({error: 'Product not found'});
+    // }
+    //
     // return res.status(200).send();
 
     var searchCondition = req.body['product_id'] ? {id: req.body['product_id']} : {serial_number: req.body['serial_number']};      
