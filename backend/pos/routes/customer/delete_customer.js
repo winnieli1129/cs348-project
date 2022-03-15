@@ -16,20 +16,23 @@ router.post('/', auth, async function(req, res, next) {
     }
 
     // TODO: change to raw sql
-    // await db.sequelize.query(`DELETE FROM \`customers\` WHERE \`id\`=:id;`, { replacements: {id: customer_id}, type: QueryTypes.DELETE });
-    // return res.status(200).send();
+    const user = await db.sequelize.query(`DELETE FROM \`customers\` WHERE \`id\`=:id;`, { replacements: {id: customer_id}, type: QueryTypes.DELETE });
+    if (!user) {
+      return res.status(404).send({error: 'Customer not found'});
+    }
 
-    customer.destroy({
-      where: {
-        id: customer_id
-      }
-    }).then(user => {
-      if (!user) {
-        return res.status(404).send({error: 'Customer not found'});
-      }
+    return res.status(200).send();
 
-      return res.status(200).send();
-    });
+    // customer.destroy({
+    //   where: {
+    //     id: customer_id
+    //   }
+    // }).then(user => {
+    //   if (!user) {
+    //   return res.status(404).send({error: 'Customer not found'});
+    // }
+    //   return res.status(200).send();
+    // });
   } catch(err) {
     console.log(err);
   }
