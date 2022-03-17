@@ -19,7 +19,6 @@ router.post('/', auth, async function(req, res, next) {
       return res.status(400).send('Require employee_id');
     }
 
-    //TODO: change to raw sql
     const user = await db.sequelize.query(`DELETE FROM \`employees\` WHERE \`id\`=:id;`, { replacements: {id: employee_id} });
     if (user[0].affectedRows === 0) {
       return res.status(404).send({error: 'Employee not found'});
