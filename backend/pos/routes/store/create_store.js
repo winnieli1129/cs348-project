@@ -12,10 +12,10 @@ router.post('/', auth, async function(req, res, next) {
     }
     
 
-    const { address, phone_number } = req.body;
+    const { address, phone_number, name } = req.body;
 
-    if (!(address && phone_number)){
-      return res.status(400).send('Requires address and phone_number');
+    if (!(name && address && phone_number)){
+      return res.status(400).send('Requires name, address, and phone_number');
     }
 
     const old_store = await store.findOne({
@@ -28,6 +28,7 @@ router.post('/', auth, async function(req, res, next) {
     }
 
     const new_store = await store.create({
+      name: name,
       address: address,
       phone_number: phone_number
     });

@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   store.init({
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     address: {
       type: DataTypes.STRING,
       allowNull: false,
