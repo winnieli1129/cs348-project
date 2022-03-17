@@ -12,7 +12,7 @@ import CustomerProfile from './pages/CustomerProfile'
 export const App = () => (
   <ChakraProvider theme={theme}>
     <Box w="100vw" h="100vh">
-      <CustomerProfile/>
+      <BrowseInventory/>
     </Box>
   </ChakraProvider>
 )

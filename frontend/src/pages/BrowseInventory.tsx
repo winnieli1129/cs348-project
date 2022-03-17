@@ -28,10 +28,48 @@ import {
 
 import axios from 'axios';
 
+const Inventory = () => {
+    const { isOpen, onToggle } = useDisclosure()
+    return (
+        <>
+            <Tr _hover={{
+                background: "#EE852F",
+                opacity: '90%',
+                color: "white",
+            }}>
+                <Td>inches</Td>
+                <Td>millimetres (mm)</Td>
+                <Td isNumeric>25.4</Td>
+                <Td isNumeric>10</Td>
+                <Td>
+                    <Flex mr="-10">
+                        <ButtonGroup variant='ghost' spacing='1'>
+                            <IconButton onClick={onToggle} aria-label='Edit' icon={<EditIcon />} _hover={{
+                                color: "black" }} />
+                            <IconButton aria-label='Delete' icon={<DeleteIcon />} _hover={{
+                                color: "black" }}/>
+                        </ButtonGroup>
+                    </Flex>
+                </Td>
+            </Tr>
+
+            <Tr hidden={!isOpen}>
+                <Td colSpan={5}>
+                    <Flex h="400px" bg="grey">
+                        <Input
+                            variant='flushed'
+                            placeholder='serial number'
+                        />
+                    </Flex>
+                </Td>
+            </Tr>
+        </>
+    )
+
+}
+
 const BrowseInventory = () => {
 
-    const { isOpen: first, onToggle: firstT } = useDisclosure()
-    const { isOpen: sec, onToggle: secT } = useDisclosure()
     return (
         <Flex direction="column" w="100%" h="100%">
             <Flex justifyContent="space-between" align="center" padding={35}>
@@ -42,10 +80,9 @@ const BrowseInventory = () => {
                         <InputRightElement children={<SearchIcon color="gray.300" />} />
                     </InputGroup>
                 </Flex>
-
             </Flex>
-            <Flex borderWidth="1px" borderRadius="10px" mx="20" overflowY="scroll">
 
+            <Flex borderWidth="1px" borderRadius="10px" mx="20" overflowY="scroll">
                 <Table variant="simple"  >
                     <TableCaption>Inventory</TableCaption>
                     <Thead>
@@ -58,59 +95,12 @@ const BrowseInventory = () => {
                         </Tr>
                     </Thead>
                     <Tbody >
-                        <Tr _hover={{
-                            background: "#EE852F",
-                            opacity: '90%',
-                            color: "white",
-                        }}>
-                            <Td>inches</Td>
-                            <Td>millimetres (mm)</Td>
-                            <Td isNumeric>25.4</Td>
-                            <Td isNumeric>10</Td>
-                            <Td >
-                                <Flex mr="-10">
-                                    <ButtonGroup variant='ghost' spacing='1'>
-                                        <IconButton onClick={firstT} aria-label='Edit' icon={<EditIcon />} _hover={{
-                                            color: "black" }} />
-                                        <IconButton aria-label='Delete' icon={<DeleteIcon />} _hover={{
-                                            color: "black" }}/>
-                                    </ButtonGroup>
-                                </Flex>
-                            </Td>
-                        </Tr>
-
-                        <Collapse in={first} animateOpacity>
-                            <Flex bg="grey" >
-                                <Input
-                                    variant='flushed'
-                                    placeholder='serial number'
-                                />
-                            </Flex>
-                        </Collapse>
-
-                        <Tr _hover={{
-                            background: "#EE852F",
-                            opacity: '90%',
-                            color: "white",
-                        }}>
-                            <Td>feet</Td>
-                            <Td>centimetres (cm)</Td>
-                            <Td isNumeric>30.48</Td>
-                            <Td isNumeric>10</Td>
-                            <Td >
-                                <Flex mr="-10">
-                                    <ButtonGroup variant='ghost' spacing='1'>
-                                    <IconButton onClick={firstT} aria-label='Edit' icon={<EditIcon />} _hover={{
-                                            color: "black" }} />
-                                        <IconButton aria-label='Delete' icon={<DeleteIcon />} _hover={{
-                                            color: "black" }}/>
-                                    </ButtonGroup>
-                                </Flex>
-                            </Td>
-                        </Tr>
-
+                        <Inventory/>
+                        <Inventory/>
+                        <Inventory/>
+                        <Inventory/>
+                        <Inventory/>
                     </Tbody>
-
                 </Table>
             </Flex>
         </Flex >
