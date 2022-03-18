@@ -7,26 +7,24 @@ import {
     Text,
     Input,
     InputGroup,
-    InputLeftElement,
     InputRightElement,
     Table,
     Thead,
-    Tbody,
-    Tfoot,
+    Tbody,  
     Tr,
     Th,
     Td,
     TableCaption,
     ButtonGroup,
-    IconButton,
-    Collapse,
+    IconButton,   
     useDisclosure,
     Image,
     Button,
+    Select
 
 } from "@chakra-ui/react"
 
-import Kermit from '/Users/chialin/Documents/CS348/cs348-project/frontend/src/kermit.jpeg'
+import Kermit from './kermit.jpeg'
 
 const Inventory = () => {
     const { isOpen, onToggle } = useDisclosure()
@@ -99,8 +97,6 @@ const Inventory = () => {
                                 <Button bg='#EE852F' color='white'>Save</Button>
                             </ButtonGroup>
                         </Flex>
-
-
                     </Flex>
                 </Td>
             </Tr>
@@ -113,7 +109,7 @@ const BrowseInventory = () => {
 
     return (
         <Flex direction="column" w="100%" h="100%">
-            <Flex justifyContent="space-between" align="center" padding={35}>
+            <Flex justifyContent="space-between" align="center" padding={30}>
                 <Flex><Text fontSize='4xl' color='#EE852F' >Inventory</Text></Flex>
                 <Flex mr="20">
                     <InputGroup>
@@ -122,7 +118,13 @@ const BrowseInventory = () => {
                     </InputGroup>
                 </Flex>
             </Flex>
-
+            <Flex w='300px' ml='20' mb='5'>
+                <Select placeholder='Select Store'>
+                    <option value='option1'>Store 1</option>
+                    <option value='option2'>Store 2</option>
+                    <option value='option3'>Store 3</option>
+                </Select>
+            </Flex>
             <Flex borderWidth="1px" borderRadius="10px" mx="20" overflowY="scroll">
                 <Table variant="simple"  >
                     <TableCaption>Inventory</TableCaption>
