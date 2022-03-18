@@ -13,7 +13,7 @@ import Checkout from "./pages/Checkout"
 export const App = () => (
   <ChakraProvider theme={theme}>
     <Box w="100vw" h="100vh">
-      <Checkout/>
+      <BrowseInventory/>
     </Box>
   </ChakraProvider>
 )
