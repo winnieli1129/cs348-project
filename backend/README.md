@@ -281,7 +281,7 @@ Body:{
 #### `GET /get-inventory`
 Require employee's jwt token
 ```
-Body:{
+Querystring:{
     "inventory_id" : integer
 }
 ```
@@ -289,7 +289,7 @@ Body:{
 #### `GET /get-inventories`
 Require employee's jwt token
 ```
-Body:{
+Querystring:{
     "store_id" : integer (optional),
     "product_id" : integer (optional)
 }
