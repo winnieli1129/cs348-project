@@ -231,7 +231,7 @@ Body: {
 
 #### `GET /get-store`
 ```
-Body: {
+Querystring: {
     "store_id": integer
 }
 ```

@@ -8,7 +8,7 @@ const db = require('../../models/index');
 router.get('/', async function(req, res, next) {
   try{
 
-    const { store_id } = req.body;
+    const { store_id } = req.query;
 
     if(!store_id) {
       return res.status(400).send('Require store_id');
