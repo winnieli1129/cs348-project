@@ -13,7 +13,7 @@ router.get('/', auth, async function(req, res, next) {
       return res.status(401).send('Unauthorized User');
     }
 
-    const { store_id, product_id } = req.body;
+    const { store_id, product_id } = req.query;
 
     //If no criteria are provided, return all inventories
     if(!(store_id || product_id)){
