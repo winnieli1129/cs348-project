@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react"
-import { MdPerson } from "react-icons/md";
-import { DeleteIcon, EditIcon, LockIcon, SearchIcon } from '@chakra-ui/icons';
+import React from "react"
+import { DeleteIcon, EditIcon, SearchIcon } from '@chakra-ui/icons';
 
 import {
     Flex,

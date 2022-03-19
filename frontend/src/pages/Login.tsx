@@ -38,7 +38,7 @@ const Login = () => {
                     Welcome! 
                 </Text>
             </Flex>
-            <Flex w="50%" direction="column" p={44}>
+            <Flex w="50%" direction="column" justify="center" p={44}>
                 <Flex mb="2">
                     <Text fontSize='4xl' color='black'> 
                         Customer Login
