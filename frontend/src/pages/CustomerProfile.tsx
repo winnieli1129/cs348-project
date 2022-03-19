@@ -54,6 +54,8 @@ const CustomerProfile = () => {
                         <Flex direction='column' mx='100px'>
                             <Text fontSize='sm' mt='10' mb='3'>Last Name</Text>
                             <Input w='300px' variant='flushed' borderColor='#BCD8C1' defaultValue='Banana' />
+                            <Text as='b' fontSize='md' mt='20'>Rewards</Text>
+                            <Text fontSize='6xl' mt='20' mb='3' align='center'>5634</Text>
                         </Flex>
                     </Flex>
                 </Flex>

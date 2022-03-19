@@ -7,7 +7,6 @@ import {
    Text,
    Input,
    InputGroup,
-   InputLeftElement,
    InputRightElement,
    Icon,
    Button
