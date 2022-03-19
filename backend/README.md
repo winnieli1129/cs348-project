@@ -109,7 +109,7 @@ Body: {
 #### `GET /get-product`
 Require employee's jwt token
 ```
-Body: {
+Querystring: {
     "product_id": integer (optional if there is serial_number),
     "serial_number": string (optional if there is product_id)
 }

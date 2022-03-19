@@ -11,10 +11,12 @@ router.get('/', auth, async function(req, res, next) {
       return res.status(401).send('Unauthorized User');
     }
 
-    if (!(req.body.hasOwnProperty('product_id') || req.body.hasOwnProperty('serial_number'))) {
+    const { product_id, serial_number } = req.query;
+
+    if (!(product_id || serial_number)) {
       return res.status(400).send('Require either product_id or serial_number');
     }
-    var searchCondition = req.body['product_id'] ? {id: req.body['product_id']} : {serial_number: req.body['serial_number']};
+    var searchCondition = product_id ? {id: product_id} : {serial_number: serial_number};
 
     const p = await product.findOne({
       where: searchCondition
