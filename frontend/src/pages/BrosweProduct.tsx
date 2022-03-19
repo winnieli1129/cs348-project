@@ -32,7 +32,7 @@ import {
 } from "@chakra-ui/react"
 
 import axios from 'axios';
-
+import EmployeeMenuSection from "../Menu";
 import Kermit from './kermit.jpeg'
 
 const Product = ({price, id, name, serial}: {price:any, id:any, name:any, serial: any}) => {
@@ -262,6 +262,7 @@ const BrowseProduct = () => {
     const productsList = products.map(product => <Product serial={product.serial_number} name={product.product_name} price={product.price} id={product.id}/>)
     return (
         <Flex direction="column" w="100%" h="100%">
+            <EmployeeMenuSection/>
             <Flex justifyContent="space-between" align="center" padding={30}>
                 <Flex><Text fontSize='4xl' color='#EE852F' >Product</Text></Flex>
                 <Flex mr="20">
