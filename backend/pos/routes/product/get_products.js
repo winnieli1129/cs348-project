@@ -14,8 +14,8 @@ router.get('/', auth, async function(req, res, next) {
     }
 
     // TODO: change to raw sql
-    // const p = await db.sequelize.query("SELECT * FROM `products`;", { type: QueryTypes.SELECT });
-    const p = await product.findAll();
+    const p = await db.sequelize.query("SELECT * FROM `products`;", { type: QueryTypes.SELECT });
+    //const p = await product.findAll();
 
     return res.status(200).json(p);
   } catch(err) {
