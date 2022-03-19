@@ -230,7 +230,6 @@ Body: {
 ```
 
 #### `GET /get-store`
-Require employee's jwt token
 ```
 Body: {
     "store_id": integer
@@ -238,7 +237,6 @@ Body: {
 ```
 
 #### `GET /get-stores`
-Require employee's jwt token
 ```
 Body: {}
 ```
