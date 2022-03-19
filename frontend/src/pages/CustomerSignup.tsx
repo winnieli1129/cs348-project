@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import { MdEmail } from "react-icons/md";
+import { MdPerson, MdEmail, MdPhone } from "react-icons/md";
 import { LockIcon } from '@chakra-ui/icons';
 
 import {
@@ -7,27 +7,29 @@ import {
    Text,
    Input,
    InputGroup,
-   InputLeftElement,
    InputRightElement,
    Icon,
-   Button,
-   Link
+   Button
+   
   } from "@chakra-ui/react"
 
 import axios from 'axios';
 
-const Login = () => {
+const CustomerSignup = () => {
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
     const handleSubmit = () => {
-        axios.post(`http://localhost:8080/customer-login`, {
+        axios.post(`http://localhost:8080/customer-register`, {
+            name: name,
             email: email,
+            phone_number: phone,
             password: password
         })
       .then(res => {
         const data = res.data;
-        window.location.href = `/profile`;
-        localStorage.setItem('jwt_token', data.jwt_token);
+        window.location.href = `/login`;
       })
       .catch(err => {
           alert(err)
@@ -36,21 +38,19 @@ const Login = () => {
     
     return (
         <Flex w="100%" h="100%">
-            <Flex w="50%" bg="#EE852F" justify="center" align="center">
-                <Text fontSize='5xl' color='white'> 
-                    Welcome! 
-                </Text>
-            </Flex>
-            <Flex w="50%" direction="column" justify="center" p={44}>
-                <Flex mb="2">
-                    <Text fontSize='4xl' color='black'> 
-                        Customer Login
-                    </Text>
-                </Flex>
-                <Flex mb="10">
-                    <Text fontSize='sm' color='black'> 
-                        Welcome Back! Login to your account.
-                    </Text>
+            <Flex w="50%" direction="column" p={44} justify="center">
+                <Flex mb="8">
+                    <InputGroup>
+                        <Input 
+                            onChange={e => {
+                                setName(e.target.value)
+                            }} 
+                            value={name} 
+                            variant='flushed' 
+                            placeholder='Name' 
+                        />
+                            <InputRightElement children={<Icon as={MdPerson} />} />
+                    </InputGroup>
                 </Flex>
                 <Flex mb="8">
                     <InputGroup>
@@ -59,10 +59,25 @@ const Login = () => {
                                 setEmail(e.target.value)
                             }} 
                             value={email} 
+                            type="email"
                             variant='flushed' 
                             placeholder='Email' 
                         />
                             <InputRightElement children={<Icon as={MdEmail} />} />
+                    </InputGroup>
+                </Flex>
+                <Flex mb="8">
+                    <InputGroup>
+                        <Input 
+                            onChange={e => {
+                                setPhone(e.target.value)
+                            }} 
+                            value={phone} 
+                            variant='flushed' 
+                            placeholder='Phone Number'
+                            type="number"
+                        />
+                            <InputRightElement children={<Icon as={MdPhone} />} />
                     </InputGroup>
                 </Flex>
                 <Flex mb="12">
@@ -80,26 +95,26 @@ const Login = () => {
                     </InputGroup>
                 </Flex>
                 <Flex>
-                    <Button
-                        disabled={!(!!password && !!email)}
+                    <Button 
+                        disabled={!(!!password && !!email && !!phone && !!name)}
                         onClick={handleSubmit} 
                         bg='#EE852F' 
                         size='md' 
                         color='white' 
                         width='100%'
                     >
-                        Login
+                        Sign Up
                     </Button>
                 </Flex>
-                <Flex mt="4" justify="center">
-                    <Link href='/signup'>
-                        Sign Up
-                    </Link>
-                </Flex>
+            </Flex>
+            <Flex w="50%" bg="#EE852F" justify="center" align="center">
+                <Text fontSize='5xl' color='white'> 
+                    Sign Up 
+                </Text>
             </Flex>
     
         </Flex>
     )
 }
 
-export default Login;
+export default CustomerSignup;

@@ -18,6 +18,9 @@ import {
 
 const OrderItem = () => {
   const [quantity, setQuantity] = useState(0)
+  if (!localStorage.getItem('jwt_token')) {
+    window.location.href = `/employee/login`;
+  }
   return (
     <Flex justify="flex-start" align="center" gap="20px">
       <Image w="50px" h="50px" src='https://bit.ly/dan-abramov'/>

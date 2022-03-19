@@ -22,7 +22,9 @@ import {
 import axios from 'axios';
 
 const CustomerProfile = () => {
-
+    if (!localStorage.getItem('jwt_token')) {
+        window.location.href = `/login`;
+    }
     return (
         <Flex w="100%" h="100%">
             <Flex w="25%" direction="column" bg="white" alignItems='center' mt='32'>
