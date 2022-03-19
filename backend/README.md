@@ -71,7 +71,7 @@ Body: {
 #### `GET /get-customer`
 Require jwt token
 ```
-Body: {
+Querystring: {
     "customer_id": integer
 }
 ```

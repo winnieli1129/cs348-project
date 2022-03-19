@@ -9,7 +9,7 @@ const auth = require('../../middleware/auth');
 /* GET retrieve customer with id. */
 router.get('/', auth, async function(req, res, next) {
   try {
-    const { customer_id } = req.body;
+    const { customer_id } = req.query;
 
     if (!customer_id) {
       return res.status(400).send('Required customer_id');
