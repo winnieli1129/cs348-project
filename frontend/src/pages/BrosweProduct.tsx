@@ -39,6 +39,48 @@ const Product = ({price, id, name, serial}: {price:any, id:any, name:any, serial
    
     const { isOpen, onToggle } = useDisclosure()
     
+    const [editedSerial, setEditedSerial] = useState("")
+    const [editedProductName, setEditedProductName] = useState("")
+    const [editedPrice, setEditedPrice] = useState(-1)
+
+    const handleDelete = () => {
+        axios.post(`http://localhost:8080/delete-product`, {
+            serial_number: serial,
+        }, {
+            headers: {
+                'Authorization': localStorage.getItem('jwt_token') || ""
+            }
+        })
+      .then(res => {
+        alert("The product is deleted!")
+        window.location.reload();
+      })
+      .catch(err => {
+          alert(err)
+      })
+    }
+
+    const handleUpdate = () => {
+        axios.post(`http://localhost:8080/update-product`, {
+            product_id: id,
+            serial_number: editedSerial === "" ? serial : editedSerial,
+            product_name: editedProductName  === "" ? name : editedProductName,
+            price: editedPrice  === -1 ? price : editedPrice
+
+        }, {
+            headers: {
+                'Authorization': localStorage.getItem('jwt_token') || ""
+            }
+        })
+      .then(res => {
+        alert("The product is updated!")
+        window.location.reload();
+      })
+      .catch(err => {
+          alert(err)
+      })
+    }
+    
     return (
         <>
             <Tr 
@@ -58,9 +100,14 @@ const Product = ({price, id, name, serial}: {price:any, id:any, name:any, serial
                             <IconButton onClick={onToggle} aria-label='Edit' icon={<EditIcon />} _hover={{
                                 color: "black"
                             }} />
-                            <IconButton aria-label='Delete' icon={<DeleteIcon />} _hover={{
-                                color: "black"
-                            }} />
+                            <IconButton 
+                                aria-label='Delete' 
+                                icon={<DeleteIcon />} 
+                                _hover={{
+                                    color: "black"
+                                }} 
+                                onClick={handleDelete}
+                            />
                         </ButtonGroup>
                     </Flex>
                 </Td>
@@ -78,6 +125,8 @@ const Product = ({price, id, name, serial}: {price:any, id:any, name:any, serial
                                         variant='flushed'
                                         placeholder={serial}
                                         w='150px'
+                                        value={editedSerial}
+                                        onChange={e => setEditedSerial(e.target.value)}
                                     />
                                 </Flex>
                                 <Flex direction='column' ml='30px'>
@@ -86,6 +135,8 @@ const Product = ({price, id, name, serial}: {price:any, id:any, name:any, serial
                                         variant='flushed'
                                         placeholder={name}
                                         w='150px'
+                                        value={editedProductName}
+                                        onChange={e => setEditedProductName(e.target.value)}
                                     />
                                 </Flex>
                                 <Flex direction='column' ml='30px'>
@@ -94,12 +145,14 @@ const Product = ({price, id, name, serial}: {price:any, id:any, name:any, serial
                                         variant='flushed'
                                         placeholder={price}
                                         w='150px'
+                                        value={editedPrice === -1 ? price : editedPrice}
+                                        onChange={e => setEditedPrice(parseFloat(e.target.value))}
                                     />
                                 </Flex>
                             </Flex>
                             <ButtonGroup variant='outline' spacing='6' mt='10' justifyContent='flex-end'>
-                                <Button color='#EE852F'>Cancel</Button>
-                                <Button bg='#EE852F' color='white'>Save</Button>
+                                <Button color='#EE852F' onClick={onToggle}>Cancel</Button>
+                                <Button bg='#EE852F' color='white'onClick={handleUpdate} >Save</Button>
                             </ButtonGroup>
                         </Flex>
                     </Flex>
@@ -205,7 +258,6 @@ const BrowseProduct = () => {
             setProducts(res.data)
         })
     }, [])
-    console.log(products)
 
     const productsList = products.map(product => <Product serial={product.serial_number} name={product.product_name} price={product.price} id={product.id}/>)
     return (
