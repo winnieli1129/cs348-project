@@ -12,7 +12,7 @@ router.get('/', auth, async function(req, res, next) {
       return res.status(401).send('Unauthorized User');
     }
 
-    const { employee_id } = req.body;
+    const { employee_id } = req.query;
 
     if (!employee_id) {
       return res.status(400).send('Required employee_id');

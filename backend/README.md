@@ -159,7 +159,7 @@ Body: {
 #### `GET /get-employee`
 Require employee's jwt token
 ```
-Body: {
+Querystring: {
     "employee_id": integer
 }
 ```
