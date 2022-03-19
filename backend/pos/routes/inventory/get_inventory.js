@@ -13,7 +13,7 @@ router.get('/', auth, async function(req, res, next){
       return res.status(401).send('Unauthorized User');
     }
 
-    const { inventory_id } = req.body;
+    const { inventory_id } = req.query;
 
     if(!inventory_id) {
       return res.status(400).send('Require inventory_id');
