@@ -28,19 +28,54 @@ import {
     ModalBody,
     FormControl,
     FormLabel,
-    ModalCloseButton
+    ModalCloseButton,
 } from "@chakra-ui/react"
+import EmployeeMenuSection from "../Menu";
 
 import axios from 'axios';
 
 import Kermit from './kermit.jpeg'
 
-const Inventory = () => {
-    if (!localStorage.getItem('jwt_token')) {
-        window.location.href = `/employee/login`;
-    }
+const Inventory = ({name, quantity, store, price, serial, id}: {name: any, quantity: any, store: any, price: any, serial: any, id: any}) => {
     const { isOpen, onToggle } = useDisclosure()
-    
+    const [editedQuantity, setEditedQuantity] = useState(-1)
+
+    const handleUpdate = () => {
+        axios.post(`http://localhost:8080/update-inventory`, {
+            inventory_id : id,
+            quantity : editedQuantity
+
+        }, {
+            headers: {
+                'Authorization': localStorage.getItem('jwt_token') || ""
+            }
+        })
+      .then(res => {
+        alert("The inventory is updated!")
+        window.location.reload();
+      })
+      .catch(err => {
+          alert(err)
+      })
+    }
+
+    const handleDelete = () => {
+        axios.post(`http://localhost:8080/delete-inventory`, {
+            inventory_id: id,
+        }, {
+            headers: {
+                'Authorization': localStorage.getItem('jwt_token') || ""
+            }
+        })
+      .then(res => {
+        alert("The inventory is deleted!")
+        window.location.reload();
+      })
+      .catch(err => {
+          alert(err)
+      })
+    }
+
     return (
         <>
             <Tr _hover={{
@@ -48,17 +83,18 @@ const Inventory = () => {
                 opacity: '90%',
                 color: "white",
             }}>
-                <Td>123456</Td>
-                <Td>Apple</Td>
-                <Td isNumeric>$25.4</Td>
-                <Td isNumeric>10</Td>
+                <Td>{serial}</Td>
+                <Td>{name}</Td>
+                <Td>{store}</Td>
+                <Td isNumeric>${price}</Td>
+                <Td isNumeric>{quantity}</Td>
                 <Td>
                     <Flex mr="-10">
                         <ButtonGroup variant='ghost' spacing='1'>
                             <IconButton onClick={onToggle} aria-label='Edit' icon={<EditIcon />} _hover={{
                                 color: "black"
                             }} />
-                            <IconButton aria-label='Delete' icon={<DeleteIcon />} _hover={{
+                            <IconButton onClick={handleDelete} aria-label='Delete' icon={<DeleteIcon />} _hover={{
                                 color: "black"
                             }} />
                         </ButtonGroup>
@@ -72,42 +108,23 @@ const Inventory = () => {
                         <Image w="150px" h="150px" src={Kermit} />
                         <Flex direction='column' w='100%' ml='20'>
                             <Flex justifyContent='space-between'>
-                                <Flex direction='column' >
-                                    <Text fontSize='sm' mt='10' mb='3'>Serial Number</Text>
-                                    <Input
-                                        variant='flushed'
-                                        placeholder='123456'
-                                        w='150px'
-                                    />
-                                </Flex>
-                                <Flex direction='column' ml='30px'>
-                                    <Text fontSize='sm' mt='10' mb='3'>Name</Text>
-                                    <Input
-                                        variant='flushed'
-                                        placeholder='Apple'
-                                        w='150px'
-                                    />
-                                </Flex>
-                                <Flex direction='column' ml='30px'>
-                                    <Text fontSize='sm' mt='10' mb='3'>Price</Text>
-                                    <Input
-                                        variant='flushed'
-                                        placeholder='25.4'
-                                        w='150px'
-                                    />
-                                </Flex>
                                 <Flex direction='column' ml='30px'>
                                     <Text fontSize='sm' mt='10' mb='3'>In Stock</Text>
                                     <Input
+                                        type="number"
                                         variant='flushed'
-                                        placeholder='10'
+                                        placeholder={quantity}
                                         w='150px'
+                                        value={editedQuantity === -1 ? quantity : editedQuantity}
+                                        onChange={ e => {
+                                            setEditedQuantity(parseFloat(e.target.value))
+                                        }}
                                     />
                                 </Flex>
                             </Flex>
                             <ButtonGroup variant='outline' spacing='6' mt='10' justifyContent='flex-end'>
-                                <Button color='#EE852F'>Cancel</Button>
-                                <Button bg='#EE852F' color='white'>Save</Button>
+                                <Button color='#EE852F' onClick={onToggle}>Cancel</Button>
+                                <Button bg='#EE852F' color='white' onClick={handleUpdate}>Save</Button>
                             </ButtonGroup>
                         </Flex>
                     </Flex>
@@ -119,21 +136,73 @@ const Inventory = () => {
 }
 
 const BrowseInventory = () => {
+    if (!localStorage.getItem('jwt_token')) {
+        window.location.href = `/employee/login`;
+    }
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [products, setProducts] = useState<any[]>([]);
+    const [inventories, setInventories] = useState<any[]>([]);
+    const [stores, setStores] = useState<any[]>([]);
+    const [selectStore, setSelectStore] = useState("");
 
-    const CreateProductModal = () => {
+    useEffect(() => {
+        axios.get(`http://localhost:8080/get-products`,
+        {
+            headers: {
+                'Authorization': localStorage.getItem('jwt_token') || ""
+            }
+        }
+        )
+        .then(res => {
+            setProducts(res.data)
+        })
+    }, [])
 
-        const [serial, setSerial] = useState("")
-        const [productName, setProductName] = useState("")
-        const [price, setPrice] = useState(0)
+    useEffect(() => {
+        selectStore === "" ?
+            axios.get(`http://localhost:8080/get-inventories`,
+            {
+                headers: {
+                    'Authorization': localStorage.getItem('jwt_token') || ""
+                }
+            }
+            )
+            .then(res => {
+                setInventories(res.data)
+            })
+        :
+            axios.get(`http://localhost:8080/get-inventories?store_id=${selectStore}`,
+            {
+                headers: {
+                    'Authorization': localStorage.getItem('jwt_token') || ""
+                }
+            })
+            .then(res => {
+                setInventories(res.data)
+            })
+    }, [selectStore])
 
+    useEffect(() => {
+        axios.get(`http://localhost:8080/get-stores`)
+        .then(res => {
+            setStores(res.data)
+        })
+    }, [])
+
+    const productOptions = products.map(product => <option value={product.id}>{product.product_name}</option>)
+    const storeOptions = stores.map(store => <option value={store.id}>{store.name}</option>)
+
+    const CreateInventoryModal = () => {
+
+        const [productId, setProductId] = useState("")
+        const [storeId, setStoreId] = useState("")
+        const [quantity, setQuantity] = useState(0)
 
         const handleSubmit = () => {
-            axios.post(`http://localhost:8080/create-product`, {
-                serial_number: serial,
-                product_name: productName,
-                price: price
+            axios.post(`http://localhost:8080/create-inventory`, {
+                product_id: productId,
+                store_id: storeId,
+                quantity: quantity
             }, {
                 headers: {
                     'Authorization': localStorage.getItem('jwt_token') || ""
@@ -141,7 +210,8 @@ const BrowseInventory = () => {
             })
           .then(res => {
             onClose()
-            alert("The product is added!")
+            alert("The inventory is added!")
+            window.location.reload();
           })
           .catch(err => {
               alert(err)
@@ -155,39 +225,49 @@ const BrowseInventory = () => {
             >
                 <ModalOverlay />
                 <ModalContent>
-                <ModalHeader>Add Product</ModalHeader>
+                <ModalHeader>Add Inventory</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>
                     <FormControl>
                     <FormLabel>Product Name</FormLabel>
-                    <Input placeholder='Product Name' value={productName} onChange={
-                        e => {
-                            setProductName(e.target.value)
-                        }
-                    }/>
+                        <Select
+                            onChange={e => {
+                                setProductId(e.target.value)
+                            }} 
+                            value={productId} 
+                            variant='flushed' 
+                            placeholder='Select Your Product'
+                        >
+                            {productOptions}
+                        </Select>
                     </FormControl>
 
                     <FormControl mt={4}>
-                    <FormLabel>Serial Number</FormLabel>
-                    <Input placeholder='Serial Number' value={serial} onChange={
-                        e => {
-                            setSerial(e.target.value)
-                        }
-                    }/>
+                    <FormLabel>Store</FormLabel>
+                        <Select
+                            onChange={e => {
+                                setStoreId(e.target.value)
+                            }} 
+                            value={storeId} 
+                            variant='flushed' 
+                            placeholder='Select Your Store'
+                        >
+                            {storeOptions}
+                        </Select>
                     </FormControl>
 
                     <FormControl mt={4}>
-                    <FormLabel>Price</FormLabel>
-                    <Input placeholder='Price' value={price} onChange={
+                    <FormLabel>Quantity</FormLabel>
+                    <Input placeholder='Quantity' value={quantity} onChange={
                         e => {
-                            setPrice(parseFloat(e.target.value))
+                            setQuantity(parseFloat(e.target.value))
                         }
                     }/>
                     </FormControl>
                 </ModalBody>
 
                 <ModalFooter>
-                    <Button disabled={!(!!serial && !!productName)} colorScheme='blue' mr={3} onClick={handleSubmit}>
+                    <Button disabled={!(!!quantity && !!storeId && !!productId)} colorScheme='blue' mr={3} onClick={handleSubmit}>
                     Submit
                     </Button>
                     <Button onClick={onClose}>Cancel</Button>
@@ -196,22 +276,12 @@ const BrowseInventory = () => {
             </Modal>
         )
     }
-    
-    useEffect(() => {
-        axios.get(`http://localhost:8080/get-products`,
-        {
-            headers: {
-                'Authorization': localStorage.getItem('jwt_token') || ""
-            }
-        }
-        )
-        .then(res => {
-            setProducts(res.data)
-        })
-    }, [])
-    console.log(products)
+
+    const inventoryList = inventories.map(inventory => <Inventory id={inventory.id} serial={inventory.product.serial_number} name={inventory.product.product_name} quantity={inventory.quantity} price={inventory.product.price} store={inventory.store.name}/>)
+
     return (
         <Flex direction="column" w="100%" h="100%">
+            <EmployeeMenuSection/>
             <Flex justifyContent="space-between" align="center" padding={30}>
                 <Flex><Text fontSize='4xl' color='#EE852F' >Inventory</Text></Flex>
                 <Flex mr="20">
@@ -219,14 +289,14 @@ const BrowseInventory = () => {
                         <Input variant='flushed' placeholder='Search' w="150px" />
                         <InputRightElement children={<SearchIcon color="gray.300" />} />
                     </InputGroup>
-                    <Button w="250px" onClick={onOpen}>Add Product</Button>
+                    <Button w="250px" onClick={onOpen}>Add Inventory</Button>
                 </Flex>
             </Flex>
             <Flex w='300px' ml='20' mb='5'>
-                <Select placeholder='Select Store'>
-                    <option value='option1'>Store 1</option>
-                    <option value='option2'>Store 2</option>
-                    <option value='option3'>Store 3</option>
+                <Select placeholder='Select Store' value={selectStore} onChange={e => {
+                    setSelectStore(e.target.value)
+                }}>
+                   {storeOptions}
                 </Select>
             </Flex>
             <Flex borderWidth="1px" borderRadius="10px" mx="20" overflowY="scroll">
@@ -235,22 +305,19 @@ const BrowseInventory = () => {
                     <Thead>
                         <Tr>
                             <Th>Serial Number</Th>
-                            <Th>Name</Th>
+                            <Th>Product</Th>
+                            <Th>Store</Th>
                             <Th isNumeric>Price</Th>
                             <Th isNumeric>In Stock</Th>
                             <Th></Th>
                         </Tr>
                     </Thead>
                     <Tbody >
-                        <Inventory />
-                        <Inventory />
-                        <Inventory />
-                        <Inventory />
-                        <Inventory />
+                       {inventoryList}
                     </Tbody>
                 </Table>
             </Flex>
-            <CreateProductModal />
+            <CreateInventoryModal />
         </Flex >
     )
 }

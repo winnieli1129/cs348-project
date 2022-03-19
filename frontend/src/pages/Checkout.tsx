@@ -15,6 +15,7 @@ import {
    IconButton,
    Divider
   } from "@chakra-ui/react"
+import EmployeeMenuSection from "../Menu";
 
 const OrderItem = () => {
   const [quantity, setQuantity] = useState(0)
@@ -73,6 +74,7 @@ const Checkout = () => {
       <Flex bg="rgba(238, 133, 47, 0.62)" h="100%" w="65%" borderRightRadius="50px" p="12">
         <Flex direction="column" w="100%">
           <Flex justify="space-between" align="center" w="100%">
+          <EmployeeMenuSection/>
             <InputGroup>
                 <Input
                     bg="white"
