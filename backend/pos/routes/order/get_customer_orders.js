@@ -10,7 +10,7 @@ const auth = require('../../middleware/auth');
 /* GET retrieve all orders of a customer. */
 router.get('/', auth, async function(req, res, next) {
   try {
-    const { customer_id } = req.body;
+    const { customer_id } = req.query;
     if (customer_id === undefined) {
         return res.status(400).send('Require customer_id');
     }

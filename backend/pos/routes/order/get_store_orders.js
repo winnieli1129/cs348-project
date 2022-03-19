@@ -14,7 +14,7 @@ router.get('/', auth, async function(req, res, next) {
       return res.status(401).send('Unauthorized User');
     }
 
-    const { store_id } = req.body;
+    const { store_id } = req.query;
     if (!store_id) {
         return res.status(400).send('Require store_id');
     }
