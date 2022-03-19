@@ -10,6 +10,9 @@ import BrowseInventory from "./pages/BrowseInventory"
 import EmployeeLogin from './pages/EmployeeLogin'
 import CustomerProfile from './pages/CustomerProfile'
 import Checkout from "./pages/Checkout"
+import CustomerSignup from "./pages/CustomerSignup";
+import EmployeeSignup from "./pages/EmployeeSignup";
+import BrowseProduct from "./pages/BrosweProduct";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
@@ -17,8 +20,11 @@ export const App = () => (
       <Routes>
         <Route path="/" element={<Checkout />} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/signup" element={<CustomerSignup/>} />
         <Route path="/inventory" element={<BrowseInventory />} />
+        <Route path="/product" element={<BrowseProduct />} />
         <Route path="/employee/login" element={<EmployeeLogin />} />
+        <Route path="/employee/signup" element={<EmployeeSignup />} />
         <Route path="/profile" element={<CustomerProfile />} />
       </Routes>
     </Box>

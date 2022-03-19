@@ -9,23 +9,23 @@ import {
    InputGroup,
    InputRightElement,
    Icon,
-   Button
-   
+   Button,
+   Link
   } from "@chakra-ui/react"
 
 import axios from 'axios';
 
 const EmployeeLogin = () => {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const handleSubmit = () => {
         axios.post(`http://localhost:8080/employee-login`, {
-            email: username,
+            email: email,
             password: password
         })
       .then(res => {
         const data = res.data;
-        console.log(data)
+        window.location.href = `/`;
         localStorage.setItem('jwt_token', data.jwt_token);
       })
     }
@@ -52,11 +52,11 @@ const EmployeeLogin = () => {
                     <InputGroup>
                         <Input 
                             onChange={e => {
-                                setUsername(e.target.value)
+                                setEmail(e.target.value)
                             }} 
-                            value={username} 
+                            value={email} 
                             variant='flushed' 
-                            placeholder='Username' 
+                            placeholder='Email' 
                         />
                             <InputRightElement children={<Icon as={MdPerson} />} />
                     </InputGroup>
@@ -82,8 +82,12 @@ const EmployeeLogin = () => {
                         Login
                     </Button>
                 </Flex>
+                <Flex mt="4" justify="center">
+                    <Link href='/employee/signup'>
+                        Sign Up
+                    </Link>
+                </Flex>
             </Flex>
-    
         </Flex>
     )
 }

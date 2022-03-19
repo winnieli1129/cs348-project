@@ -35,32 +35,79 @@ import axios from 'axios';
 
 import Kermit from './kermit.jpeg'
 
-const Inventory = () => {
-    if (!localStorage.getItem('jwt_token')) {
-        window.location.href = `/employee/login`;
-    }
+const Product = ({price, id, name, serial}: {price:any, id:any, name:any, serial: any}) => {
+   
     const { isOpen, onToggle } = useDisclosure()
+    
+    const [editedSerial, setEditedSerial] = useState("")
+    const [editedProductName, setEditedProductName] = useState("")
+    const [editedPrice, setEditedPrice] = useState(-1)
+
+    const handleDelete = () => {
+        axios.post(`http://localhost:8080/delete-product`, {
+            serial_number: serial,
+        }, {
+            headers: {
+                'Authorization': localStorage.getItem('jwt_token') || ""
+            }
+        })
+      .then(res => {
+        alert("The product is deleted!")
+        window.location.reload();
+      })
+      .catch(err => {
+          alert(err)
+      })
+    }
+
+    const handleUpdate = () => {
+        axios.post(`http://localhost:8080/update-product`, {
+            product_id: id,
+            serial_number: editedSerial === "" ? serial : editedSerial,
+            product_name: editedProductName  === "" ? name : editedProductName,
+            price: editedPrice  === -1 ? price : editedPrice
+
+        }, {
+            headers: {
+                'Authorization': localStorage.getItem('jwt_token') || ""
+            }
+        })
+      .then(res => {
+        alert("The product is updated!")
+        window.location.reload();
+      })
+      .catch(err => {
+          alert(err)
+      })
+    }
     
     return (
         <>
-            <Tr _hover={{
-                background: "#EE852F",
-                opacity: '90%',
-                color: "white",
-            }}>
-                <Td>123456</Td>
-                <Td>Apple</Td>
-                <Td isNumeric>$25.4</Td>
-                <Td isNumeric>10</Td>
+            <Tr 
+                key={id}
+                _hover={{
+                    background: "#EE852F",
+                    opacity: '90%',
+                    color: "white",
+                }}
+            >
+                <Td>{serial}</Td>
+                <Td>{name}</Td>
+                <Td isNumeric>${price}</Td>
                 <Td>
                     <Flex mr="-10">
                         <ButtonGroup variant='ghost' spacing='1'>
                             <IconButton onClick={onToggle} aria-label='Edit' icon={<EditIcon />} _hover={{
                                 color: "black"
                             }} />
-                            <IconButton aria-label='Delete' icon={<DeleteIcon />} _hover={{
-                                color: "black"
-                            }} />
+                            <IconButton 
+                                aria-label='Delete' 
+                                icon={<DeleteIcon />} 
+                                _hover={{
+                                    color: "black"
+                                }} 
+                                onClick={handleDelete}
+                            />
                         </ButtonGroup>
                     </Flex>
                 </Td>
@@ -71,43 +118,41 @@ const Inventory = () => {
                     <Flex h="230px">
                         <Image w="150px" h="150px" src={Kermit} />
                         <Flex direction='column' w='100%' ml='20'>
-                            <Flex justifyContent='space-between'>
+                            <Flex justifyContent='space-around'>
                                 <Flex direction='column' >
                                     <Text fontSize='sm' mt='10' mb='3'>Serial Number</Text>
                                     <Input
                                         variant='flushed'
-                                        placeholder='123456'
+                                        placeholder={serial}
                                         w='150px'
+                                        value={editedSerial}
+                                        onChange={e => setEditedSerial(e.target.value)}
                                     />
                                 </Flex>
                                 <Flex direction='column' ml='30px'>
                                     <Text fontSize='sm' mt='10' mb='3'>Name</Text>
                                     <Input
                                         variant='flushed'
-                                        placeholder='Apple'
+                                        placeholder={name}
                                         w='150px'
+                                        value={editedProductName}
+                                        onChange={e => setEditedProductName(e.target.value)}
                                     />
                                 </Flex>
                                 <Flex direction='column' ml='30px'>
                                     <Text fontSize='sm' mt='10' mb='3'>Price</Text>
                                     <Input
                                         variant='flushed'
-                                        placeholder='25.4'
+                                        placeholder={price}
                                         w='150px'
-                                    />
-                                </Flex>
-                                <Flex direction='column' ml='30px'>
-                                    <Text fontSize='sm' mt='10' mb='3'>In Stock</Text>
-                                    <Input
-                                        variant='flushed'
-                                        placeholder='10'
-                                        w='150px'
+                                        value={editedPrice === -1 ? price : editedPrice}
+                                        onChange={e => setEditedPrice(parseFloat(e.target.value))}
                                     />
                                 </Flex>
                             </Flex>
                             <ButtonGroup variant='outline' spacing='6' mt='10' justifyContent='flex-end'>
-                                <Button color='#EE852F'>Cancel</Button>
-                                <Button bg='#EE852F' color='white'>Save</Button>
+                                <Button color='#EE852F' onClick={onToggle}>Cancel</Button>
+                                <Button bg='#EE852F' color='white'onClick={handleUpdate} >Save</Button>
                             </ButtonGroup>
                         </Flex>
                     </Flex>
@@ -118,7 +163,10 @@ const Inventory = () => {
 
 }
 
-const BrowseInventory = () => {
+const BrowseProduct = () => {
+    if (!localStorage.getItem('jwt_token')) {
+        window.location.href = `/employee/login`;
+    }
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [products, setProducts] = useState<any[]>([]);
 
@@ -142,6 +190,7 @@ const BrowseInventory = () => {
           .then(res => {
             onClose()
             alert("The product is added!")
+            window.location.reload();
           })
           .catch(err => {
               alert(err)
@@ -209,11 +258,12 @@ const BrowseInventory = () => {
             setProducts(res.data)
         })
     }, [])
-    console.log(products)
+
+    const productsList = products.map(product => <Product serial={product.serial_number} name={product.product_name} price={product.price} id={product.id}/>)
     return (
         <Flex direction="column" w="100%" h="100%">
             <Flex justifyContent="space-between" align="center" padding={30}>
-                <Flex><Text fontSize='4xl' color='#EE852F' >Inventory</Text></Flex>
+                <Flex><Text fontSize='4xl' color='#EE852F' >Product</Text></Flex>
                 <Flex mr="20">
                     <InputGroup>
                         <Input variant='flushed' placeholder='Search' w="150px" />
@@ -222,31 +272,19 @@ const BrowseInventory = () => {
                     <Button w="250px" onClick={onOpen}>Add Product</Button>
                 </Flex>
             </Flex>
-            <Flex w='300px' ml='20' mb='5'>
-                <Select placeholder='Select Store'>
-                    <option value='option1'>Store 1</option>
-                    <option value='option2'>Store 2</option>
-                    <option value='option3'>Store 3</option>
-                </Select>
-            </Flex>
             <Flex borderWidth="1px" borderRadius="10px" mx="20" overflowY="scroll">
                 <Table variant="simple"  >
-                    <TableCaption>Inventory</TableCaption>
+                    <TableCaption>Product</TableCaption>
                     <Thead>
                         <Tr>
                             <Th>Serial Number</Th>
                             <Th>Name</Th>
                             <Th isNumeric>Price</Th>
-                            <Th isNumeric>In Stock</Th>
                             <Th></Th>
                         </Tr>
                     </Thead>
                     <Tbody >
-                        <Inventory />
-                        <Inventory />
-                        <Inventory />
-                        <Inventory />
-                        <Inventory />
+                        {productsList}
                     </Tbody>
                 </Table>
             </Flex>
@@ -255,4 +293,4 @@ const BrowseInventory = () => {
     )
 }
 
-export default BrowseInventory;
+export default BrowseProduct;
