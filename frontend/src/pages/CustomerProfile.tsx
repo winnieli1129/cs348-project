@@ -17,25 +17,30 @@ import {
 } from "@chakra-ui/react"
 
 import axios from 'axios';
+import jwt_decode from "jwt-decode";
 
 const CustomerProfile = () => {
 
+    
     const { isOpen, onToggle } = useDisclosure()
 
-    const [id, setId] = useState("")
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [phone_number, setPhone] = useState("")
     const [password, setPassword] = useState("")
     const [rewards, setRewards] = useState("")
 
-    if (!localStorage.getItem('jwt_token')) {
-        window.location.href = `/login`;
-    }
+    var token = localStorage.getItem('jwt_token');
 
+    if (!token) {
+        window.location.href = `/login`;
+    } else {
+        var decoded = jwt_decode(token);
+    }
+    
     const handleDelete = () => {
         axios.post(`http://localhost:8080/delete-customer`, {
-            customer_id: id,
+            //customer_id: decoded,
         }, {
             headers: {
                 'Authorization': localStorage.getItem('jwt_token') || ""
@@ -52,7 +57,7 @@ const CustomerProfile = () => {
 
     const handleUpdate = () => {
         axios.post(`http://localhost:8080/update-customer`, {
-            customer_id: id,
+            //customer_id: id,
             name: name === "" ? name : name,
             email: email === "" ? email : email,
             phone_number: phone_number === "" ? phone_number : phone_number,
@@ -129,24 +134,24 @@ const CustomerProfile = () => {
                                 onChange={e => setPhone(e.target.value)}
                             />
 
-                            
+
                         </Flex>
                         <Flex direction='column' mx='100px'>
-                                <Text fontSize='sm' mt='10' mb='3'>Rewards</Text>
-                                <Input w='300px' variant='flushed' borderColor='#BCD8C1' defaultValue={rewards} />
-                                <Text fontSize='sm' mt='10' mb='3'>Password</Text>
-                                <Input
-                                    w='300px'
-                                    variant='flushed'
-                                    borderColor='#BCD8C1'
-                                    defaultValue={password}
-                                    onChange={e => setPassword(e.target.value)}
-                                />
-                                <ButtonGroup size='sm' mt='20' variant='outline' spacing='6' alignSelf='flex-end'>
-                                    <Button color='#EE852F' onClick={onToggle}>Cancel</Button>
-                                    <Button bg='#EE852F' color='white' onClick={handleUpdate} >Save</Button>
-                                </ButtonGroup>
-                            </Flex>
+                            <Text fontSize='sm' mt='10' mb='3'>Rewards</Text>
+                            <Input w='300px' variant='flushed' borderColor='#BCD8C1' defaultValue={rewards} />
+                            <Text fontSize='sm' mt='10' mb='3'>Password</Text>
+                            <Input
+                                w='300px'
+                                variant='flushed'
+                                borderColor='#BCD8C1'
+                                defaultValue={password}
+                                onChange={e => setPassword(e.target.value)}
+                            />
+                            <ButtonGroup size='sm' mt='20' variant='outline' spacing='6' alignSelf='flex-end'>
+                                <Button color='#EE852F' onClick={onToggle}>Cancel</Button>
+                                <Button bg='#EE852F' color='white' onClick={handleUpdate} >Save</Button>
+                            </ButtonGroup>
+                        </Flex>
                     </Flex>
                     <Text mx='40px' as='b' fontSize='md' mt='10'>Orders</Text>
                 </Flex>
