@@ -27,9 +27,9 @@ const CustomerProfile = ({ customer_id, name, email, phone_number, password, rew
     const [editedPhone, setEditedPhone] = useState("")
     const [editedPassword, setEditedPassword] = useState("")
 
-    // if (!localStorage.getItem('jwt_token')) {
-    //     window.location.href = `/login`;
-    // }
+    if (!localStorage.getItem('jwt_token')) {
+        window.location.href = `/login`;
+    }
 
     const handleDelete = () => {
         axios.post(`http://localhost:8080/delete-customer`, {
