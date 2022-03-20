@@ -17,15 +17,17 @@ import {
 } from "@chakra-ui/react"
 
 import axios from 'axios';
-//{ id, name, email, phone_number, password, rewards }: { id: any, name: any, email: any, phone_number: any, password: any, rewards: any }
-const CustomerProfile = ({ customer_id, name, email, phone_number, password, rewards }: { customer_id: any, name: any, email: any, phone_number: any, password: any, rewards: any }) => {
+
+const CustomerProfile = () => {
 
     const { isOpen, onToggle } = useDisclosure()
 
-    const [editedName, setEditedName] = useState("")
-    const [editedEmail, setEditedEmail] = useState("")
-    const [editedPhone, setEditedPhone] = useState("")
-    const [editedPassword, setEditedPassword] = useState("")
+    const [id, setId] = useState("")
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [phone_number, setPhone] = useState("")
+    const [password, setPassword] = useState("")
+    const [rewards, setRewards] = useState("")
 
     if (!localStorage.getItem('jwt_token')) {
         window.location.href = `/login`;
@@ -33,7 +35,7 @@ const CustomerProfile = ({ customer_id, name, email, phone_number, password, rew
 
     const handleDelete = () => {
         axios.post(`http://localhost:8080/delete-customer`, {
-            customer_id: customer_id,
+            customer_id: id,
         }, {
             headers: {
                 'Authorization': localStorage.getItem('jwt_token') || ""
@@ -50,11 +52,11 @@ const CustomerProfile = ({ customer_id, name, email, phone_number, password, rew
 
     const handleUpdate = () => {
         axios.post(`http://localhost:8080/update-customer`, {
-            customer_id: customer_id,
-            name: editedName === "" ? name : editedName,
-            email: editedEmail === "" ? email : editedEmail,
-            phone_number: editedPhone === "" ? phone_number : editedPhone,
-            password: editedPassword === "" ? password : editedPassword,
+            customer_id: id,
+            name: name === "" ? name : name,
+            email: email === "" ? email : email,
+            phone_number: phone_number === "" ? phone_number : phone_number,
+            password: password === "" ? password : password,
 
         }, {
             headers: {
@@ -108,7 +110,7 @@ const CustomerProfile = ({ customer_id, name, email, phone_number, password, rew
                                 variant='flushed'
                                 borderColor='#BCD8C1'
                                 defaultValue={name}
-                                onChange={e => setEditedName(e.target.value)}
+                                onChange={e => setName(e.target.value)}
                             />
                             <Text fontSize='sm' mt='10' mb='3'>Email</Text>
                             <Input
@@ -116,7 +118,7 @@ const CustomerProfile = ({ customer_id, name, email, phone_number, password, rew
                                 variant='flushed'
                                 borderColor='#BCD8C1'
                                 defaultValue={email}
-                                onChange={e => setEditedEmail(e.target.value)}
+                                onChange={e => setEmail(e.target.value)}
                             />
                             <Text fontSize='sm' mt='10' mb='3'>Phone Number</Text>
                             <Input
@@ -124,7 +126,7 @@ const CustomerProfile = ({ customer_id, name, email, phone_number, password, rew
                                 variant='flushed'
                                 borderColor='#BCD8C1'
                                 defaultValue={phone_number}
-                                onChange={e => setEditedPhone(e.target.value)}
+                                onChange={e => setPhone(e.target.value)}
                             />
 
                             
@@ -138,16 +140,15 @@ const CustomerProfile = ({ customer_id, name, email, phone_number, password, rew
                                     variant='flushed'
                                     borderColor='#BCD8C1'
                                     defaultValue={password}
-                                    onChange={e => setEditedPassword(e.target.value)}
+                                    onChange={e => setPassword(e.target.value)}
                                 />
                                 <ButtonGroup size='sm' mt='20' variant='outline' spacing='6' alignSelf='flex-end'>
                                     <Button color='#EE852F' onClick={onToggle}>Cancel</Button>
-                                    <Button bg='#EE852F' color='white'onClick={handleUpdate} >Save</Button>
+                                    <Button bg='#EE852F' color='white' onClick={handleUpdate} >Save</Button>
                                 </ButtonGroup>
                             </Flex>
                     </Flex>
                     <Text mx='40px' as='b' fontSize='md' mt='10'>Orders</Text>
-                                
                 </Flex>
             </Flex>
         </Flex>
