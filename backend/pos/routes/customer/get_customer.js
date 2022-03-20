@@ -16,16 +16,12 @@ router.get('/', auth, async function(req, res, next) {
     }
 
     // TODO: change to raw sql
-    // const user = await db.sequelize.query(`SELECT * FROM \`customers\` WHERE \`id\`=:id;`, { replacements: { id: customer_id }, type: QueryTypes.SELECT });
-    // if (!user) {
-    //   return res.status(404).send('User Doesn\'t Exist.');
-    // }
-
-    const user = await customer.findOne({
-      where: {
-        id: customer_id
-      }
-    });
+    const user = await db.sequelize.query(`SELECT * FROM \`customers\` WHERE \`id\`=:id;`, { replacements: { id: customer_id }, type: QueryTypes.SELECT });
+    // const user = await customer.findOne({
+    //   where: {
+    //     id: customer_id
+    //   }
+    // });
 
     if (!user) {
       return res.status(404).send('User Didn\'t Exist.');
