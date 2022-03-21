@@ -32,7 +32,7 @@ const CustomerSignup = () => {
         window.location.href = `/login`;
       })
       .catch(err => {
-          alert(err)
+          alert(err.response.data)
       })
     }
     

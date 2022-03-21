@@ -28,6 +28,8 @@ import {
     ModalBody,
     FormControl,
     FormLabel,
+    NumberInputField,
+    NumberInput,
     ModalCloseButton,
 } from "@chakra-ui/react"
 import EmployeeMenuSection from "../Menu";
@@ -55,7 +57,7 @@ const Inventory = ({name, quantity, store, price, serial, id}: {name: any, quant
         window.location.reload();
       })
       .catch(err => {
-          alert(err)
+          alert(err.response.data)
       })
     }
 
@@ -72,7 +74,7 @@ const Inventory = ({name, quantity, store, price, serial, id}: {name: any, quant
         window.location.reload();
       })
       .catch(err => {
-          alert(err)
+          alert(err.response.data)
       })
     }
 
@@ -214,7 +216,7 @@ const BrowseInventory = () => {
             window.location.reload();
           })
           .catch(err => {
-              alert(err)
+              alert(err.response.data)
           })
         }
 
@@ -258,11 +260,15 @@ const BrowseInventory = () => {
 
                     <FormControl mt={4}>
                     <FormLabel>Quantity</FormLabel>
-                    <Input placeholder='Quantity' value={quantity} onChange={
-                        e => {
-                            setQuantity(parseFloat(e.target.value))
+                    <NumberInput placeholder='Quantity' value={quantity} defaultValue={0}>
+                    <NumberInputField 
+                        onChange={
+                            e => {
+                                setQuantity(parseFloat(e.target.value))
+                            }
                         }
-                    }/>
+                    />
+                    </NumberInput>
                     </FormControl>
                 </ModalBody>
 

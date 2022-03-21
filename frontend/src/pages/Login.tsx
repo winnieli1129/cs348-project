@@ -30,7 +30,7 @@ const Login = () => {
         localStorage.setItem('jwt_token', data.jwt_token);
       })
       .catch(err => {
-          alert(err)
+          alert(err.response.data)
       })
     }
     

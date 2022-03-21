@@ -52,7 +52,7 @@ const CustomerProfile = () => {
                 window.location.reload();
             })
             .catch(err => {
-                alert(err)
+                alert(err.response.data)
             })
     }
 
@@ -74,7 +74,7 @@ const CustomerProfile = () => {
                 window.location.reload();
             })
             .catch(err => {
-                alert(err)
+                alert(err.response.data)
             })
     }
 

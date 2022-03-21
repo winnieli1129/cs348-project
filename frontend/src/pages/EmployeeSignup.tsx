@@ -40,7 +40,7 @@ const EmployeeSignup = () => {
         window.location.href = `/employee/login`;
       })
       .catch(err => {
-          alert(err)
+          alert(err.response.data)
       })
     }
 

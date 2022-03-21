@@ -15,35 +15,30 @@ router.post('/', auth, async function(req, res, next) {
       return res.status(401).send('Unauthorized User');
     }
     
-    var { customer_id, store_id, products } = req.body;
+    var { customer_email, store_id, products } = req.body;
 
     if (!(store_id && products)) {
-      return res.status(400).send('Require store_id, and products in form of [{serial_number:string, quantity:int}]');
+      return res.status(400).send('Require store_id and products in form of [{serial_number:string, quantity:int}]');
     }
 
-    if (!customer_id) {
-      customer_id = 0;
-    }
+    const searchCondition = customer_email ? { email: customer_email } : { id: 0 };
 
-    const c = await customer.findOne({
-      where: {
-        id: customer_id
-      }
-    });
+    const c = await customer.findOne({ where: searchCondition });
     if (!c) {
-      return res.status(409).send('Customer doesn\'t exists');
+      return res.status(404).send('Customer doesn\'t exists');
     }
+
     const s = await store.findOne({
       where: {
         id: store_id
       }
     });
     if (!s) {
-      return res.status(409).send('Store doesn\'t exists');
+      return res.status(404).send('Store doesn\'t exists');
     }
 
     const new_order = await order.create({
-      customer_id: customer_id,
+      customer_id: c.id,
       store_id: store_id,
       total_price: 0
     });
@@ -69,7 +64,7 @@ router.post('/', auth, async function(req, res, next) {
             id: new_order.id
           }
         })
-        return res.status(409).send('Product ' + bought_product['serial_number'] + ' don\'t have enough stock\n Order fail to create.');
+        return res.status(409).send('Product ' + p.product_name + '(Serial Number: ' + bought_product['serial_number'] + ') doesn\'t have enough stock.\n Order fail to create.');
       }
       i.quantity -= bought_product['quantity'];
       i.save();

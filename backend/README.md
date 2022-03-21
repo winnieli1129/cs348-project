@@ -169,7 +169,7 @@ Querystring: {
 Require employee's jwt token
 ```
 Body: {
-    "customer_id": integer (optional),
+    "customer_email": string (optional),
     "store_id": integer,
     "prodcuts": [
         {
@@ -214,6 +214,7 @@ Body: {}
 Require employee's jwt token
 ```
 Body: {
+    "name": string
     "address" : string
     "phone_number" : string
 }
@@ -298,3 +299,6 @@ Returns all inventories if you provide neither store_id nor product_id.
 Returns all inventories at a certain store if you provide store_id and not product_id.
 Returns all inventories of a certain product if you provide product_id and not store_id.
 Returns only the inventory of the requested product at the requested store if you provide both.
+
+#### `GET /check-token`
+Require jwt token

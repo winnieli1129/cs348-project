@@ -28,7 +28,8 @@ router.post('/', async function(req, res, next) {
           id: user.id,
           email: user.email,
           password: user.password,
-          employee: true
+          employee: true,
+          store_id: user.store_id
         },
         process.env.TOKEN_KEY,
         {
