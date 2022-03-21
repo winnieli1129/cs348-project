@@ -359,7 +359,13 @@ const Checkout = () => {
             </b>
           </Text>
         </Flex>
-        <Button onClick={handleSubmitOrder} mt="5" color="white" bg="#EE852F" borderRadius="20px">
+        <Button
+          disabled={curOrder.products.length === 0}
+          onClick={handleSubmitOrder} 
+          mt="5" color="white" 
+          bg="#EE852F" 
+          borderRadius="20px"
+        >
           Checkout
         </Button>
       </Flex>
