@@ -73,7 +73,7 @@ router.post('/', auth, async function(req, res, next) {
       await new_order.save();
     }
 
-    c.reward_points = new_order.total_price;
+    c.reward_points += new_order.total_price;
     await c.save();
 
     return res.status(201).json(new_order);
