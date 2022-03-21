@@ -27,7 +27,9 @@ import {
     ModalBody,
     FormControl,
     FormLabel,
-    ModalCloseButton
+    ModalCloseButton,
+    NumberInputField,
+    NumberInput
 } from "@chakra-ui/react"
 
 import axios from 'axios';
@@ -172,14 +174,14 @@ const BrowseProduct = () => {
 
         const [serial, setSerial] = useState("")
         const [productName, setProductName] = useState("")
-        const [price, setPrice] = useState(0)
+        const [price, setPrice] = useState("0")
 
 
         const handleSubmit = () => {
             axios.post(`http://localhost:8080/create-product`, {
                 serial_number: serial,
                 product_name: productName,
-                price: price
+                price: parseFloat(price)
             }, {
                 headers: {
                     'Authorization': localStorage.getItem('jwt_token') || ""
@@ -225,11 +227,15 @@ const BrowseProduct = () => {
 
                     <FormControl mt={4}>
                     <FormLabel>Price</FormLabel>
-                    <Input placeholder='Price' value={price} onChange={
-                        e => {
-                            setPrice(parseFloat(e.target.value))
+                    <NumberInput placeholder='Price' value={price} defaultValue={0} precision={2}>
+                    <NumberInputField 
+                        onChange={
+                            e => {
+                                setPrice(e.target.value)
+                            }
                         }
-                    }/>
+                    />
+                    </NumberInput>
                     </FormControl>
                 </ModalBody>
 
