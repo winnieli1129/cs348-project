@@ -114,6 +114,7 @@ const Checkout = () => {
   if (!localStorage.getItem('jwt_token')) {
     window.location.href = `/employee/login`;
   }
+  const [curScannedItem, setCurScannedItem] = useState("");
   const [products, setProducts] = useState<any[]>([]);
   const [curOrder, setCurOrder] = useState<order>({
     customer_email: "",
@@ -298,12 +299,36 @@ const Checkout = () => {
           <EmployeeMenuSection/>
             <InputGroup>
                 <Input
+                    autoFocus
                     bg="white"
                     boxShadow="md"
                     size='lg'
-                    placeholder='Search for an item'
+                    placeholder='Scan your item'
                     w="400px"
                     borderRadius="10"
+                    value={curScannedItem}
+                    onKeyDown={e => {
+                      if (e.key === "Enter") {
+                        axios.get(`http://localhost:8080/get-product?serial_number=${curScannedItem}`,
+                        {
+                            headers: {
+                                'Authorization': localStorage.getItem('jwt_token') || ""
+                            }
+                        })
+                        .then(res => {
+                          handleAddToCart(res.data.serial_number, res.data.price, res.data.product_name)
+                          setCurScannedItem("");
+                        })
+                        .catch(err => {
+                          alert("Item not found")
+                          setCurScannedItem("");
+                        })
+                      }
+                    }}
+                    onChange={e => {
+                      setCurScannedItem(e.target.value)
+                      }
+                    }
                 />
                     <InputLeftElement children={<Icon w="6" h="6" as={MdSearch} />} />
             </InputGroup>
