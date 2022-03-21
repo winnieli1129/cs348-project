@@ -18,6 +18,7 @@ import {
 import EmployeeMenuSection from "../Menu";
 import axios from 'axios';
 import * as R from 'ramda'
+import jwt_decode from "jwt-decode";
 
 type product = {
   serial_number: string,
@@ -27,9 +28,14 @@ type product = {
 }
 
 type order = {
-  customer_id?: number,
+  customer_email?: string,
   store_id: number,
   products: product[]
+}
+
+let personalInfo = {}
+if (localStorage.getItem("jwt_token")) {
+  personalInfo = jwt_decode(localStorage.getItem("jwt_token") || "");
 }
 
 const OrderItem = ({
@@ -111,6 +117,7 @@ const Checkout = () => {
   }
   const [products, setProducts] = useState<any[]>([]);
   const [curOrder, setCurOrder] = useState<order>({
+    customer_email: "",
     store_id: 0,
     products: []
   });
@@ -186,6 +193,48 @@ const Checkout = () => {
       }, curOrder.products)
     })
   }
+
+  const handleSubmitOrder = () => {
+    let formattedProducts:any[] = []
+
+    curOrder.products.map(product => {
+      formattedProducts.push(R.pick(['serial_number', 'quantity'], product))
+    })
+
+    console.log(formattedProducts)
+
+    curOrder.customer_email === "" ?
+      axios.post(`http://localhost:8080/create-order`,
+      {
+        store_id: (personalInfo as any).store_id,
+        products: formattedProducts
+      },
+      {
+          headers: {
+              'Authorization': localStorage.getItem('jwt_token') || ""
+          }
+      }
+      )
+      .then(res => {
+          setProducts(res.data)
+      })
+    :
+    axios.post(`http://localhost:8080/create-order`,
+    {
+      customer_email: curOrder.customer_email,
+      store_id: (personalInfo as any).store_id,
+      products: formattedProducts
+    },
+    {
+        headers: {
+            'Authorization': localStorage.getItem('jwt_token') || ""
+        }
+    }
+    )
+    .then(res => {
+        setProducts(res.data)
+    })
+  }
   
   useEffect(() => {
     axios.get(`http://localhost:8080/get-products`,
@@ -240,6 +289,22 @@ const Checkout = () => {
                 />
                     <InputLeftElement children={<Icon w="6" h="6" as={MdSearch} />} />
             </InputGroup>
+            <Input
+                bg="white"
+                boxShadow="md"
+                size='lg'
+                placeholder='Customer Email (Optional)'
+                w="600px"
+                borderRadius="10"
+                mr="4"
+                value={curOrder.customer_email}
+                onChange={e => {
+                  setCurOrder({
+                    ...curOrder,
+                    customer_email: e.target.value
+                  })
+                }}
+            />
             <Button borderRadius="100" bg="#3B413C" textColor="white">
               J
             </Button>
@@ -276,7 +341,7 @@ const Checkout = () => {
             </b>
           </Text>
         </Flex>
-        <Button mt="5" color="white" bg="#EE852F" borderRadius="20px">
+        <Button onClick={handleSubmitOrder} mt="5" color="white" bg="#EE852F" borderRadius="20px">
           Checkout
         </Button>
       </Flex>
