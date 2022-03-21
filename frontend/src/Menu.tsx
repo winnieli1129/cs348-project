@@ -18,6 +18,7 @@ const EmployeeMenuSection = () => {
                 <MenuItem onClick={() =>  window.location.href = `/inventory`}>Inventory</MenuItem>
                 <MenuItem onClick={() =>  window.location.href = `/product`}>Products</MenuItem>
                 <MenuItem onClick={() =>  window.location.href = `/`}>Checkout</MenuItem>
+                <MenuItem onClick={() =>  window.location.href = `/store`}>Store</MenuItem>
             </MenuList>
         </Menu>
     )

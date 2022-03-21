@@ -14,6 +14,7 @@ import CustomerSignup from "./pages/CustomerSignup";
 import EmployeeSignup from "./pages/EmployeeSignup";
 import BrowseProduct from "./pages/BrosweProduct";
 import axios from 'axios';
+import BrowseStore from "./pages/BrowseStore";
 
 export const App = () => {
   useEffect(() => {
@@ -47,6 +48,7 @@ export const App = () => {
         <Route path="/employee/login" element={<EmployeeLogin />} />
         <Route path="/employee/signup" element={<EmployeeSignup />} />
         <Route path="/profile" element={<CustomerProfile />} />
+        <Route path="/store" element={<BrowseStore />} />
       </Routes>
     </Box>
   </ChakraProvider>

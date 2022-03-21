@@ -25,7 +25,7 @@ router.post('/', auth, async function(req, res, next) {
 
     const c = await customer.findOne({ where: searchCondition });
     if (!c) {
-      return res.status(409).send('Customer doesn\'t exists');
+      return res.status(404).send('Customer doesn\'t exists');
     }
 
     const s = await store.findOne({
@@ -34,7 +34,7 @@ router.post('/', auth, async function(req, res, next) {
       }
     });
     if (!s) {
-      return res.status(409).send('Store doesn\'t exists');
+      return res.status(404).send('Store doesn\'t exists');
     }
 
     const new_order = await order.create({
