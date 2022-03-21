@@ -18,6 +18,7 @@ import {
 
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
+import { createDeflate } from "zlib";
 
 const CustomerProfile = () => {
 
@@ -28,7 +29,8 @@ const CustomerProfile = () => {
     const [email, setEmail] = useState("")
     const [phone_number, setPhone] = useState("")
     const [password, setPassword] = useState("")
-    const [rewards, setRewards] = useState("")
+    const [rewards, setRewards] = useState(0)
+    const [createdAt, setCreated] = useState<Date>(new Date())
     const [orders, setOrders] = useState<any[]>([]);
 
     const token = localStorage.getItem('jwt_token');
@@ -47,14 +49,33 @@ const CustomerProfile = () => {
             })
             .then(res => {
                 setOrders(res.data)
-                console.log(res.data)
+            })
+
+        axios.get(`http://localhost:8080/get-customer?customer_id=${decoded.id}`,
+            {
+                headers: {
+                    'Authorization': localStorage.getItem('jwt_token') || ""
+                }
+            })
+            .then(res => {
+                console.log(res.data[0])
+                const userInfo = res.data[0]
+                setName(userInfo.name)
+                setEmail(userInfo.email)
+                setPhone(userInfo.phone_number)
+                setRewards(userInfo.reward_points)
+                setCreated(new Date(userInfo.createdAt))
+                
+            })
+            .catch(err => {
+                alert(err.response.data)
             })
     }, [])
 
     const orderList = orders.map(order => {
         return (
             <Flex w='100%' justifyContent='flex-start' >
-                <Text mr='60'>{order.createdAt}</Text>
+                <Text mr='60'>{new Date(order.createdAt).toLocaleDateString()}</Text>
                 <Text mr='60'>{order.store.name}</Text>
                 <Text>${order.total_price}</Text>
             </Flex>
@@ -72,6 +93,7 @@ const CustomerProfile = () => {
         })
             .then(res => {
                 alert("The profile is deleted!")
+                localStorage.clear()
                 window.location.reload();
             })
             .catch(err => {
@@ -106,10 +128,10 @@ const CustomerProfile = () => {
             <Flex w="25%" direction="column" bg="white" alignItems='center' mt='32'>
                 <Image w="150px" h="150px" src='https://bit.ly/dan-abramov' />
                 <Text fontSize='xl'>
-                    Name
+                    {name}
                 </Text>
                 <Text fontSize='xs' color='#8D8D8D' >
-                    Member Since 2/22/22
+                    Member Since {createdAt.toLocaleDateString()}
                 </Text>
                 <Divider orientation='horizontal' color='#BCD8C1' w='200px' />
 
@@ -176,7 +198,10 @@ const CustomerProfile = () => {
                                 onChange={e => setPassword(e.target.value)}
                             />
                             <ButtonGroup size='sm' mt='10' variant='outline' spacing='6' alignSelf='flex-end'>
-                                <Button color='#EE852F' onClick={onToggle}>Cancel</Button>
+                                <Button color='#EE852F' onClick={()=>{
+                                    localStorage.clear()
+                                    window.location.reload();
+                                }}>Logout</Button>
                                 <Button bg='#EE852F' color='white' onClick={handleUpdate} >Save</Button>
                             </ButtonGroup>
                         </Flex>
