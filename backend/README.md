@@ -188,22 +188,22 @@ Body: {
     "order_id": integer
 }
 ```
-#### `POST /get-store-orders`
+#### `GET /get-store-orders`
 Require employee's jwt token
 ```
 Querystring: {
     "store_id": integer
 }
 ```
-#### `POST /get-customer-orders`
+#### `GET /get-customer-orders`
 Require jwt token
 ```
 Querystring: {
-    "store_id": integer
+    "customer_id": integer
 }
 ```
 
-#### `POST /get-orders`
+#### `GET /get-orders`
 Require employee's jwt token
 ```
 Body: {}
