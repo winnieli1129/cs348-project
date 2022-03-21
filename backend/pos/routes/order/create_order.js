@@ -64,7 +64,7 @@ router.post('/', auth, async function(req, res, next) {
             id: new_order.id
           }
         })
-        return res.status(409).send('Product ' + bought_product['serial_number'] + ' don\'t have enough stock\n Order fail to create.');
+        return res.status(409).send('Product ' + p.product_name + '(Serial Number: ' + bought_product['serial_number'] + ') doesn\'t have enough stock.\n Order fail to create.');
       }
       i.quantity -= bought_product['quantity'];
       i.save();
