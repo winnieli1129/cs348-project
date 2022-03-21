@@ -19,7 +19,6 @@ import {
     useDisclosure,
     Image,
     Button,
-    Select,
     Modal,
     ModalOverlay,
     ModalContent,
@@ -38,7 +37,6 @@ import Kermit from './kermit.jpeg'
 const Product = ({price, id, name, serial}: {price:any, id:any, name:any, serial: any}) => {
    
     const { isOpen, onToggle } = useDisclosure()
-    
     const [editedSerial, setEditedSerial] = useState("")
     const [editedProductName, setEditedProductName] = useState("")
     const [editedPrice, setEditedPrice] = useState(-1)
