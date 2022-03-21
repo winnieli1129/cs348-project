@@ -33,7 +33,8 @@ router.get('/', auth, async function(req, res, next) {
       },
       include: [
         { model: customer},
-        { model: product}
+        { model: product},
+        { model: store}
       ]
     });
     if (orders.length === 0) {
