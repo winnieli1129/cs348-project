@@ -16,6 +16,7 @@ import BrowseProduct from "./pages/BrosweProduct";
 import axios from 'axios';
 import BrowseStore from "./pages/BrowseStore";
 import BrowseOrder from "./pages/BrowseOrder";
+import EmployeeProfile from "./pages/EmployeeProfile";
 
 export const App = () => {
   useEffect(() => {
@@ -48,6 +49,7 @@ export const App = () => {
         <Route path="/profile" element={<CustomerProfile />} />
         <Route path="/store" element={<BrowseStore />} />
         <Route path="/order" element={<BrowseOrder />} />
+        <Route path="/employee/profile" element={<EmployeeProfile/>} />
       </Routes>
     </Box>
   </ChakraProvider>

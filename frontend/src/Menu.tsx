@@ -20,6 +20,7 @@ const EmployeeMenuSection = () => {
                 <MenuItem onClick={() =>  window.location.href = `/`}>Checkout</MenuItem>
                 <MenuItem onClick={() =>  window.location.href = `/store`}>Store</MenuItem>
                 <MenuItem onClick={() =>  window.location.href = `/order`}>Order</MenuItem>
+                <MenuItem onClick={() =>  window.location.href = `/employee/profile`}>Profile</MenuItem>
             </MenuList>
         </Menu>
     )

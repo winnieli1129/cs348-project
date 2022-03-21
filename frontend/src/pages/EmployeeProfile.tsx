@@ -20,8 +20,9 @@ import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import { createDeflate } from "zlib";
 import { product } from "ramda";
+import EmployeeMenuSection from "../Menu";
 
-const CustomerProfile = () => {
+const EmployeeProfile = () => {
 
 
     const { isOpen, onToggle } = useDisclosure()
@@ -132,6 +133,7 @@ const CustomerProfile = () => {
 
     return (
         <Flex w="100%" h="100%">
+            <EmployeeMenuSection/>
             <Flex w="25%" direction="column" bg="white" alignItems='center' mt='32'>
                 <Image w="150px" h="150px" src='https://bit.ly/dan-abramov' />
                 <Text fontSize='xl'>
@@ -231,4 +233,4 @@ const CustomerProfile = () => {
     )
 }
 
-export default CustomerProfile;
+export default EmployeeProfile;
