@@ -56,7 +56,7 @@ const Product = ({price, id, name, serial}: {price:any, id:any, name:any, serial
         window.location.reload();
       })
       .catch(err => {
-          alert(err)
+          alert(err.response.data)
       })
     }
 
@@ -77,7 +77,7 @@ const Product = ({price, id, name, serial}: {price:any, id:any, name:any, serial
         window.location.reload();
       })
       .catch(err => {
-          alert(err)
+          alert(err.response.data)
       })
     }
     
@@ -193,7 +193,7 @@ const BrowseProduct = () => {
             window.location.reload();
           })
           .catch(err => {
-              alert(err)
+              alert(err.response.data)
           })
         }
 

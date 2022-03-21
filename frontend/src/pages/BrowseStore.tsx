@@ -55,7 +55,7 @@ const Store = ({id, name, address, phone_number}: {id:any, name:any, address: an
         window.location.reload();
       })
       .catch(err => {
-          alert(err)
+          alert(err.response.data)
       })
     }
 
@@ -76,7 +76,7 @@ const Store = ({id, name, address, phone_number}: {id:any, name:any, address: an
         window.location.reload();
       })
       .catch(err => {
-          alert(err)
+          alert(err.response.data)
       })
     }
     
@@ -191,7 +191,7 @@ const BrowseStore = () => {
             window.location.reload();
           })
           .catch(err => {
-              alert(err)
+              alert(err.response.data)
           })
         }
 
