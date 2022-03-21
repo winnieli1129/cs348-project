@@ -199,7 +199,7 @@ Querystring: {
 Require jwt token
 ```
 Querystring: {
-    "store_id": integer
+    "customer_id": integer
 }
 ```
 
