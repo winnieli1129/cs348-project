@@ -214,6 +214,7 @@ Body: {}
 Require employee's jwt token
 ```
 Body: {
+    "name": string
     "address" : string
     "phone_number" : string
 }
