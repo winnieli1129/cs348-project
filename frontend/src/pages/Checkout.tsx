@@ -81,7 +81,6 @@ const OrderItem = ({
     </Flex>
   )
 }
-
 const Item = ({price, id, name, handleAddToCart}: {price:any, id:any, name:any, handleAddToCart:any}) => {
   return (
     <Flex 
@@ -201,7 +200,6 @@ const Checkout = () => {
       formattedProducts.push(R.pick(['serial_number', 'quantity'], product))
     })
 
-    console.log(formattedProducts)
 
     curOrder.customer_email === "" ?
       axios.post(`http://localhost:8080/create-order`,
@@ -216,7 +214,17 @@ const Checkout = () => {
       }
       )
       .then(res => {
-          setProducts(res.data)
+          alert("Order has been submitted!");
+          setCurOrder(
+            {
+              customer_email: "",
+              store_id: 0,
+              products: []
+            }
+          )
+      })
+      .catch(err => {
+        alert(err)
       })
     :
     axios.post(`http://localhost:8080/create-order`,
@@ -232,7 +240,17 @@ const Checkout = () => {
     }
     )
     .then(res => {
-        setProducts(res.data)
+      alert("Order has been submitted!");
+      setCurOrder(
+        {
+          customer_email: "",
+          store_id: 0,
+          products: []
+        }
+      )
+    })
+    .catch(err => {
+      alert(err)
     })
   }
   
