@@ -250,7 +250,7 @@ const Checkout = () => {
       )
     })
     .catch(err => {
-      alert(err)
+      alert(err.response.data)
     })
   }
   
