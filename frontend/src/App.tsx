@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, {useEffect} from "react"
 import {
   ChakraProvider,
   Box,
@@ -13,10 +13,28 @@ import Checkout from "./pages/Checkout"
 import CustomerSignup from "./pages/CustomerSignup";
 import EmployeeSignup from "./pages/EmployeeSignup";
 import BrowseProduct from "./pages/BrosweProduct";
+import axios from 'axios';
 import BrowseStore from "./pages/BrowseStore";
 
-export const App = () => (
-  <ChakraProvider theme={theme}>
+export const App = () => {
+  useEffect(() => {
+    if (localStorage.getItem('jwt_token')) {
+      axios.get(`http://localhost:8080/check-token`,
+        {
+            headers: {
+                'Authorization': localStorage.getItem('jwt_token') || ""
+            }
+        }
+      )
+      .catch(err => {
+        localStorage.clear();
+        window.location.href = `/employee/login`;
+      })
+    }
+  }, [])
+
+  return (
+    <ChakraProvider theme={theme}>
     <Box w="100vw" h="100vh">
       <Routes>
         <Route path="/" element={<Checkout />} />
@@ -31,4 +49,5 @@ export const App = () => (
       </Routes>
     </Box>
   </ChakraProvider>
-)
+  )
+}
