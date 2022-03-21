@@ -26,9 +26,6 @@ export const App = () => {
             }
         }
       )
-      .then(res => {
-        console.log(res)
-      })
       .catch(err => {
         localStorage.clear();
         window.location.href = `/employee/login`;

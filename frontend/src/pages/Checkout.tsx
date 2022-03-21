@@ -224,7 +224,7 @@ const Checkout = () => {
           )
       })
       .catch(err => {
-        alert(err)
+        alert(err.response.data)
       })
     :
     axios.post(`http://localhost:8080/create-order`,
