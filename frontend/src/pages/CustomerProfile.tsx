@@ -21,7 +21,7 @@ import jwt_decode from "jwt-decode";
 
 const CustomerProfile = () => {
 
-    
+
     const { isOpen, onToggle } = useDisclosure()
 
     const [name, setName] = useState("")
@@ -29,19 +29,42 @@ const CustomerProfile = () => {
     const [phone_number, setPhone] = useState("")
     const [password, setPassword] = useState("")
     const [rewards, setRewards] = useState("")
+    const [orders, setOrders] = useState<any[]>([]);
 
     const token = localStorage.getItem('jwt_token');
 
     if (!token) {
         window.location.href = `/login`;
-    } else {
-        const decoded = jwt_decode(token);
-        //const id = decoded.customer_id;
     }
-    
+    const decoded: any = jwt_decode(token || "");
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/get-customer-orders?customer_id=${decoded.id}`,
+            {
+                headers: {
+                    'Authorization': localStorage.getItem('jwt_token') || ""
+                }
+            })
+            .then(res => {
+                setOrders(res.data)
+                console.log(res.data)
+            })
+    }, [])
+
+    const orderList = orders.map(order => {
+        return (
+            <Flex w='100%' justifyContent='flex-start' >
+                <Text mr='60'>{order.createdAt}</Text>
+                <Text mr='60'>{order.store.name}</Text>
+                <Text>${order.total_price}</Text>
+            </Flex>
+        )
+    })
+
     const handleDelete = () => {
+
         axios.post(`http://localhost:8080/delete-customer`, {
-            //customer_id: id,
+            customer_id: (decoded as any).id,
         }, {
             headers: {
                 'Authorization': localStorage.getItem('jwt_token') || ""
@@ -58,7 +81,7 @@ const CustomerProfile = () => {
 
     const handleUpdate = () => {
         axios.post(`http://localhost:8080/update-customer`, {
-            //customer_id: id,
+            customer_id: (decoded as any).id,
             name: name === "" ? name : name,
             email: email === "" ? email : email,
             phone_number: phone_number === "" ? phone_number : phone_number,
@@ -110,24 +133,27 @@ const CustomerProfile = () => {
                     <Divider borderColor='#BCD8C1' w='780px' mx='40px' />
                     <Flex>
                         <Flex direction='column' ml='40px'>
-                            <Text fontSize='sm' mt='10' mb='3'>Name</Text>
+                            <Text fontSize='sm' mt='3' mb='1'>Name</Text>
                             <Input
+                                size='sm'
                                 w='300px'
                                 variant='flushed'
                                 borderColor='#BCD8C1'
                                 defaultValue={name}
                                 onChange={e => setName(e.target.value)}
                             />
-                            <Text fontSize='sm' mt='10' mb='3'>Email</Text>
+                            <Text fontSize='sm' mt='3' mb='1'>Email</Text>
                             <Input
+                                size='sm'
                                 w='300px'
                                 variant='flushed'
                                 borderColor='#BCD8C1'
                                 defaultValue={email}
                                 onChange={e => setEmail(e.target.value)}
                             />
-                            <Text fontSize='sm' mt='10' mb='3'>Phone Number</Text>
+                            <Text fontSize='sm' mt='3' mb='1'>Phone Number</Text>
                             <Input
+                                size='sm'
                                 w='300px'
                                 variant='flushed'
                                 borderColor='#BCD8C1'
@@ -138,23 +164,34 @@ const CustomerProfile = () => {
 
                         </Flex>
                         <Flex direction='column' mx='100px'>
-                            <Text fontSize='sm' mt='10' mb='3'>Rewards</Text>
-                            <Input w='300px' variant='flushed' borderColor='#BCD8C1' defaultValue={rewards} />
-                            <Text fontSize='sm' mt='10' mb='3'>Password</Text>
+                            <Text fontSize='sm' mt='3' mb='1'>Rewards</Text>
+                            <Input size='sm' w='300px' variant='flushed' borderColor='#BCD8C1' defaultValue={rewards} />
+                            <Text fontSize='sm' mt='3' mb='1'>Password</Text>
                             <Input
+                                size='sm'
                                 w='300px'
                                 variant='flushed'
                                 borderColor='#BCD8C1'
                                 defaultValue={password}
                                 onChange={e => setPassword(e.target.value)}
                             />
-                            <ButtonGroup size='sm' mt='20' variant='outline' spacing='6' alignSelf='flex-end'>
+                            <ButtonGroup size='sm' mt='10' variant='outline' spacing='6' alignSelf='flex-end'>
                                 <Button color='#EE852F' onClick={onToggle}>Cancel</Button>
                                 <Button bg='#EE852F' color='white' onClick={handleUpdate} >Save</Button>
                             </ButtonGroup>
                         </Flex>
                     </Flex>
+
                     <Text mx='40px' as='b' fontSize='md' mt='10'>Orders</Text>
+                    <Flex h='300px' w='100%' overflowY="scroll" px={10} pb={10} pt={3} direction="column">
+                        <Flex w='100%' justifyContent='flex-start' >
+                            <Text mr='60'>Time</Text>
+                            <Text mr='60'>Store</Text>
+                            <Text>Total Price</Text>
+                        </Flex>
+                        <Divider borderColor='#BCD8C1' w='100%' />
+                        {orderList}
+                    </Flex>
                 </Flex>
             </Flex>
         </Flex>
