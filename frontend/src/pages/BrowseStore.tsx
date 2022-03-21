@@ -118,7 +118,7 @@ const Store = ({id, name, address, phone_number}: {id:any, name:any, address: an
                         <Flex direction='column' w='100%' ml='20'>
                             <Flex justifyContent='space-around'>
                                 <Flex direction='column' >
-                                    <Text fontSize='sm' mt='10' mb='3'>Serial Number</Text>
+                                    <Text fontSize='sm' mt='10' mb='3'>Name</Text>
                                     <Input
                                         variant='flushed'
                                         placeholder={name}
@@ -128,7 +128,7 @@ const Store = ({id, name, address, phone_number}: {id:any, name:any, address: an
                                     />
                                 </Flex>
                                 <Flex direction='column' ml='30px'>
-                                    <Text fontSize='sm' mt='10' mb='3'>Name</Text>
+                                    <Text fontSize='sm' mt='10' mb='3'>Address</Text>
                                     <Input
                                         variant='flushed'
                                         placeholder={address}
@@ -138,7 +138,7 @@ const Store = ({id, name, address, phone_number}: {id:any, name:any, address: an
                                     />
                                 </Flex>
                                 <Flex direction='column' ml='30px'>
-                                    <Text fontSize='sm' mt='10' mb='3'>Price</Text>
+                                    <Text fontSize='sm' mt='10' mb='3'>Phone Number</Text>
                                     <Input
                                         variant='flushed'
                                         placeholder={phone_number}
