@@ -30,17 +30,18 @@ const CustomerProfile = () => {
     const [password, setPassword] = useState("")
     const [rewards, setRewards] = useState("")
 
-    var token = localStorage.getItem('jwt_token');
+    const token = localStorage.getItem('jwt_token');
 
     if (!token) {
         window.location.href = `/login`;
     } else {
-        var decoded = jwt_decode(token);
+        const decoded = jwt_decode(token);
+        //const id = decoded.customer_id;
     }
     
     const handleDelete = () => {
         axios.post(`http://localhost:8080/delete-customer`, {
-            //customer_id: decoded,
+            //customer_id: id,
         }, {
             headers: {
                 'Authorization': localStorage.getItem('jwt_token') || ""
