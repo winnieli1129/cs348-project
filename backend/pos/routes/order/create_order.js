@@ -15,24 +15,19 @@ router.post('/', auth, async function(req, res, next) {
       return res.status(401).send('Unauthorized User');
     }
     
-    var { customer_id, store_id, products } = req.body;
+    var { customer_email, store_id, products } = req.body;
 
     if (!(store_id && products)) {
-      return res.status(400).send('Require store_id, and products in form of [{serial_number:string, quantity:int}]');
+      return res.status(400).send('Require store_id and products in form of [{serial_number:string, quantity:int}]');
     }
 
-    if (!customer_id) {
-      customer_id = 0;
-    }
+    const searchCondition = customer_email ? { email: customer_email } : { id: 0 };
 
-    const c = await customer.findOne({
-      where: {
-        id: customer_id
-      }
-    });
+    const c = await customer.findOne({ where: searchCondition });
     if (!c) {
       return res.status(409).send('Customer doesn\'t exists');
     }
+
     const s = await store.findOne({
       where: {
         id: store_id
@@ -43,7 +38,7 @@ router.post('/', auth, async function(req, res, next) {
     }
 
     const new_order = await order.create({
-      customer_id: customer_id,
+      customer_id: c.id,
       store_id: store_id,
       total_price: 0
     });

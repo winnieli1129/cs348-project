@@ -169,7 +169,7 @@ Querystring: {
 Require employee's jwt token
 ```
 Body: {
-    "customer_id": integer (optional),
+    "customer_email": string (optional),
     "store_id": integer,
     "prodcuts": [
         {
