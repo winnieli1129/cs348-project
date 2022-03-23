@@ -13,8 +13,6 @@ router.get('/', async function(req, res, next) {
       return res.status(400).send('Require jwt_token');
     }
 
-    console.log(jwt_token);
-
     try {
       const decoded = jwt.verify(jwt_token, config.TOKEN_KEY);
       req.user = decoded;
