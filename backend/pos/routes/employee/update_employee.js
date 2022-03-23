@@ -17,11 +17,13 @@ router.post('/', auth, async function(req, res, next) {
     }
 
     const employee_id = req.body['employee_id'];
-    delete req.body['employee_id']
-    if (req.body.hasOwnProperty('password')) {
+    delete req.body['employee_id'];
+    if (req.body['password']) {
       encryptedPassword = await bcrypt.hash(req.body['password'], 10);
       req.body['password'] = encryptedPassword;
-    }
+    } else if (req.body['password'] == null) {
+      delete req.body['password'];
+    } 
     
     employee.update(req.body, {
         where: {

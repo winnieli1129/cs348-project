@@ -14,10 +14,12 @@ router.post('/', auth, async function(req, res, next) {
 
     const customer_id = req.body['customer_id'];
     delete req.body['customer_id']
-    if (req.body.hasOwnProperty('password')) {
+    if (req.body['password']) {
       encryptedPassword = await bcrypt.hash(req.body['password'], 10);
       req.body['password'] = encryptedPassword;
-    }
+    } else if (req.body['password'] == null) {
+      delete req.body['password'];
+    } 
     
     customer.update(req.body, {
         where: {
