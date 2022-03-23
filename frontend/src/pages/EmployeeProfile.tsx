@@ -114,7 +114,7 @@ const EmployeeProfile = () => {
             store_id: storeId,
             name: name === "" ? name : name,
             email: email === "" ? email : email,
-            password: password === "" ? password : password,
+            password: password === "" ? null : password,
 
         }, {
             headers: {
@@ -209,7 +209,7 @@ const EmployeeProfile = () => {
                             <ButtonGroup size='sm' mt='10' variant='outline' spacing='6' alignSelf='flex-end'>
                                 <Button color='#EE852F' onClick={() => {
                                     localStorage.clear()
-                                    window.location.reload();
+                                    window.location.href = `/employee/login`;
                                 }}>Logout</Button>
                                 <Button bg='#EE852F' color='white' onClick={handleUpdate} >Save</Button>
                             </ButtonGroup>

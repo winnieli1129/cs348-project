@@ -114,7 +114,7 @@ const CustomerProfile = () => {
             name: name === "" ? name : name,
             email: email === "" ? email : email,
             phone_number: phone_number === "" ? phone_number : phone_number,
-            password: password === "" ? password : password,
+            password: password === "" ? null : password,
 
         }, {
             headers: {
