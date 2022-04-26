@@ -7,6 +7,7 @@ const customer = require('../../models').customer;
 const store = require('../../models').store;
 const inventory = require('../../models').inventory;
 const auth = require('../../middleware/auth');
+const db = require('../../models/index');
 
 /* POST create order. */
 router.post('/', auth, async function(req, res, next) {
@@ -37,11 +38,13 @@ router.post('/', auth, async function(req, res, next) {
       return res.status(404).send('Store doesn\'t exists');
     }
 
+    const t = await db.sequelize.transaction();
+
     const new_order = await order.create({
       customer_id: c.id,
       store_id: store_id,
       total_price: 0
-    });
+    }, { transaction: t });
 
     for (const bought_product of products) {
       const p = await product.findOne({
@@ -59,18 +62,15 @@ router.post('/', auth, async function(req, res, next) {
         }
       });
       if (!i || i.quantity < bought_product['quantity']) {
-        await order.destroy({
-          where: {
-            id: new_order.id
-          }
-        })
+        await t.rollback();
         return res.status(409).send('Product ' + p.product_name + '(Serial Number: ' + bought_product['serial_number'] + ') doesn\'t have enough stock.\n Order fail to create.');
       }
       i.quantity -= bought_product['quantity'];
-      i.save();
-      await new_order.addProduct(p, { through: { quantity: bought_product['quantity'] } })
+      i.save({ transaction: t });
+      await new_order.addProduct(p, { through: { quantity: bought_product['quantity'] }, transaction: t })
       new_order.total_price += p.price * bought_product['quantity'];
-      await new_order.save();
+      await new_order.save({ transaction: t });
+      await t.commit();
     }
 
     c.reward_points += new_order.total_price;
