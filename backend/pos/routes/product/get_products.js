@@ -13,7 +13,6 @@ router.get('/', auth, async function(req, res, next) {
       return res.status(401).send('Unauthorized User');
     }
 
-    // TODO: change to raw sql
     const p = await db.sequelize.query("SELECT * FROM `products`;", { type: QueryTypes.SELECT });
     //const p = await product.findAll();
 

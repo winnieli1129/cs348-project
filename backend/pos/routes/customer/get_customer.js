@@ -15,7 +15,6 @@ router.get('/', auth, async function(req, res, next) {
       return res.status(400).send('Required customer_id');
     }
 
-    // TODO: change to raw sql
     const user = await db.sequelize.query(`SELECT * FROM \`customers\` WHERE \`id\`=:id;`, { replacements: { id: customer_id }, type: QueryTypes.SELECT });
     // const user = await customer.findOne({
     //   where: {
