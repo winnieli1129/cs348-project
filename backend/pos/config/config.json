@@ -19,10 +19,10 @@
     "username": "root",
     "password": "1Mh77jmwxhPjgJ5A",
     "database": "pos",
-    "host": "/cloudsql/cs348-pos:us-central1:cs348-pos",
+    "host": "/cloudsql/cs348-pos:us-central1:cs348pos",
     "dialect": "mysql",
     "dialectOptions": {
-      "socketPath": "/cloudsql/cs348-pos:us-central1:cs348-pos"
+      "socketPath": "/cloudsql/cs348-pos:us-central1:cs348pos"
     }
   }
 }

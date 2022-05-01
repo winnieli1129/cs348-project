@@ -58,7 +58,8 @@ var app = express();
 var corsOptions = {
   origin: [
     'http://127.0.0.1:3000',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'https://jade-pony-8d1340.netlify.app/'
   ]
 }
 app.use(cors(corsOptions));
