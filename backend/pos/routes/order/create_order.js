@@ -38,7 +38,7 @@ router.post('/', auth, async function(req, res, next) {
       return res.status(404).send('Store doesn\'t exists');
     }
 
-    const t = await db.sequelize.transaction();
+    const t = await db.sequelize.transaction({ isolationLevel: Transaction.ISOLATION_LEVELS.READ_COMMITTED });
 
     const new_order = await order.create({
       customer_id: c.id,
@@ -70,8 +70,8 @@ router.post('/', auth, async function(req, res, next) {
       await new_order.addProduct(p, { through: { quantity: bought_product['quantity'] }, transaction: t })
       new_order.total_price += p.price * bought_product['quantity'];
       await new_order.save({ transaction: t });
-      await t.commit();
     }
+    await t.commit();
 
     c.reward_points += new_order.total_price;
     await c.save();
